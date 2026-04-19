@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAESTRO PALCO — Estruture sua carreira de músico profissional</title>
+<meta name="description" content="23 aulas. 5 horas. Um documento de 8 páginas com seu posicionamento, preço, pauta e plano de 90 dias — no papel, não na sua cabeça.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ═══════════════════════════════════════════════
+     ATOMIC LAYER 0 — DESIGN TOKENS
+     Brad Frost: "Start with the atoms."
+     Filosofia visual: Podium Stage (Midnight + Gold)
+  ═══════════════════════════════════════════════ */
+  :root {
+    /* Midnight surface hierarchy */
+    --m-midnight-950: #141422;
+    --m-midnight-900: #1C1C2E;
+    --m-midnight-800: #23233A;
+    --m-midnight-700: #2D2D4A;
+
+    /* Gold accents */
+    --m-gold-500:     #C9A84C;
+    --m-gold-300:     #F0D080;
+    --m-gold-glow:    rgba(201, 168, 76, 0.18);
+    --m-gold-dim:     rgba(201, 168, 76, 0.08);
+
+    /* Slate text */
+    --m-slate-200:    #E2E8F0;
+    --m-slate-400:    #94A3B8;
+    --m-slate-600:    #475569;
+
+    /* Semantic */
+    --m-ink:          #0A0A14;
+    --m-danger:       #EF4444;
+    --m-danger-dim:   rgba(239, 68, 68, 0.12);
+    --m-success:      #10B981;
+    --m-success-dim:  rgba(16, 185, 129, 0.12);
+
+    /* Borders */
+    --border-faint:   rgba(255, 255, 255, 0.06);
+    --border-soft:    rgba(255, 255, 255, 0.10);
+    --border-gold:    rgba(201, 168, 76, 0.35);
+
+    /* Spacing */
+    --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+    --sp-5: 20px;  --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px;
+    --sp-12: 48px; --sp-16: 64px; --sp-20: 80px; --sp-24: 96px;
+
+    /* Typography */
+    --font-display: 'Montserrat', system-ui, sans-serif;
+    --font-body:    'Montserrat', system-ui, sans-serif;
+    --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+    /* Radius */
+    --r-sm: 4px;  --r-md: 6px;  --r-lg: 10px;  --r-xl: 14px;
+
+    /* Container */
+    --container: 680px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESET / BASE
+  ═══════════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--m-slate-200);
+    background: var(--m-midnight-900);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--sp-6);
+  }
+
+  section { padding: var(--sp-20) 0; }
+
+  /* ═══════════════════════════════════════════════
+     TYPE SCALE — Montserrat 900 display
+  ═══════════════════════════════════════════════ */
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--m-slate-200);
+  }
+
+  h1 { font-size: clamp(40px, 7vw, 64px); }
+  h2 { font-size: clamp(28px, 4.5vw, 38px); margin-bottom: var(--sp-6); }
+  h3 { font-size: clamp(20px, 3vw, 24px); margin-bottom: var(--sp-4); }
+  h4 { font-size: 18px; font-weight: 700; margin-bottom: var(--sp-3); }
+
+  p { margin-bottom: var(--sp-4); }
+  p:last-child { margin-bottom: 0; }
+
+  a { color: var(--m-gold-300); text-decoration: none; }
+  strong { color: var(--m-gold-300); font-weight: 700; }
+
+  /* ═══════════════════════════════════════════════
+     ATOMS — BUTTON
+  ═══════════════════════════════════════════════ */
+  .btn-cta {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    background: var(--m-gold-500);
+    color: var(--m-ink);
+    border: none;
+    border-radius: var(--r-sm);
+    padding: var(--sp-5) var(--sp-10);
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    text-align: center;
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
+  }
+  .btn-cta:hover {
+    background: var(--m-gold-300);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(201, 168, 76, 0.35);
+  }
+  .btn-cta-lg {
+    font-size: 19px;
+    padding: var(--sp-6) var(--sp-12);
+    width: 100%;
+    max-width: 520px;
+  }
+
+  /* Divider */
+  .divider-gold {
+    width: 80px; height: 2px;
+    background: var(--m-gold-500);
+    margin: var(--sp-8) auto;
+    border: none;
+  }
+
+  /* ═══════════════════════════════════════════════
+     HERO
+  ═══════════════════════════════════════════════ */
+  .hero {
+    padding: var(--sp-24) 0 var(--sp-20);
+    background:
+      radial-gradient(ellipse at top, var(--m-gold-glow) 0%, transparent 55%),
+      var(--m-midnight-900);
+    text-align: center;
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .hero .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--m-gold-500);
+    margin-bottom: var(--sp-6);
+  }
+  .hero h1 {
+    color: var(--m-slate-200);
+    margin-bottom: var(--sp-6);
+  }
+  .hero h1 .highlight {
+    color: var(--m-gold-300);
+    display: block;
+  }
+  .hero .subheadline {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--m-slate-400);
+    max-width: 600px;
+    margin: 0 auto var(--sp-10);
+    font-weight: 400;
+  }
+  .hero .subheadline strong {
+    color: var(--m-slate-200);
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════════
+     IDENTIFICAÇÃO
+  ═══════════════════════════════════════════════ */
+  .identification {
+    background: var(--m-midnight-950);
+    border-left: 3px solid var(--m-gold-500);
+  }
+  .identification .intro {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--m-slate-200);
+    margin-bottom: var(--sp-8);
+  }
+  .ident-list {
+    list-style: none;
+    margin-bottom: var(--sp-8);
+  }
+  .ident-list li {
+    position: relative;
+    padding: var(--sp-4) 0 var(--sp-4) var(--sp-8);
+    border-bottom: 1px solid var(--border-faint);
+    color: var(--m-slate-200);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .ident-list li:last-child { border-bottom: none; }
+  .ident-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    top: var(--sp-4);
+    color: var(--m-gold-500);
+    font-weight: 900;
+    font-family: var(--font-display);
+  }
+  .identification .closing {
+    font-weight: 700;
+    color: var(--m-gold-300);
+    font-size: 18px;
+    font-style: italic;
+    margin-top: var(--sp-6);
+  }
+
+  /* ═══════════════════════════════════════════════
+     PROBLEMA REAL
+  ═══════════════════════════════════════════════ */
+  .problem { text-align: left; }
+  .problem .lead {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--m-slate-200);
+    margin-bottom: var(--sp-6);
+    line-height: 1.35;
+  }
+  .problem .emphasis {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: var(--m-gold-300);
+    font-size: 20px;
+    display: block;
+    padding: var(--sp-3) 0;
+    line-height: 1.4;
+  }
+  .problem .emphasis-block {
+    margin: var(--sp-8) 0;
+    padding: var(--sp-6);
+    background: var(--m-midnight-800);
+    border-left: 3px solid var(--m-gold-500);
+    border-radius: var(--r-md);
+  }
+  .problem .signoff {
+    font-weight: 700;
+    color: var(--m-slate-200);
+    font-size: 18px;
+    margin-top: var(--sp-6);
+  }
+
+  /* ═══════════════════════════════════════════════
+     INSTRUTOR
+  ═══════════════════════════════════════════════ */
+  .instructor {
+    background: var(--m-midnight-950);
+  }
+  .instructor-card {
+    background: var(--m-midnight-800);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--r-lg);
+    padding: var(--sp-10);
+    position: relative;
+  }
+  .instructor-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--m-gold-500), transparent);
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+  .instructor-card .name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 26px;
+    color: var(--m-gold-300);
+    margin-bottom: var(--sp-6);
+    letter-spacing: -0.01em;
+  }
+  .instructor-card .punch {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--m-slate-200);
+    margin: var(--sp-6) 0;
+    padding: var(--sp-4) 0;
+    border-top: 1px solid var(--border-faint);
+    border-bottom: 1px solid var(--border-faint);
+    text-align: center;
+  }
+
+  /* ═══════════════════════════════════════════════
+     O QUE É
+  ═══════════════════════════════════════════════ */
+  .what-is .box {
+    background: var(--m-midnight-800);
+    border-radius: var(--r-lg);
+    padding: var(--sp-10);
+    border: 1px solid var(--border-soft);
+  }
+  .what-is .not-list {
+    color: var(--m-slate-400);
+    margin: var(--sp-6) 0;
+  }
+  .what-is .not-list p {
+    padding-left: var(--sp-6);
+    position: relative;
+    margin-bottom: var(--sp-2);
+  }
+  .what-is .not-list p::before {
+    content: "×";
+    position: absolute;
+    left: 0;
+    color: var(--m-danger);
+    font-weight: 700;
+  }
+  .what-is .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-4);
+    margin-top: var(--sp-8);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--border-faint);
+  }
+  .what-is .stat {
+    flex: 1 1 140px;
+    text-align: center;
+    padding: var(--sp-3);
+  }
+  .what-is .stat .num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 32px;
+    color: var(--m-gold-300);
+    line-height: 1;
+    margin-bottom: var(--sp-2);
+  }
+  .what-is .stat .lbl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--m-slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  /* ═══════════════════════════════════════════════
+     MÓDULOS
+  ═══════════════════════════════════════════════ */
+  .modules { background: var(--m-midnight-950); }
+  .modules h2 { text-align: center; }
+  .modules .subtitle {
+    text-align: center;
+    color: var(--m-slate-400);
+    font-size: 16px;
+    margin-bottom: var(--sp-12);
+  }
+
+  .module-card {
+    background: var(--m-midnight-800);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-lg);
+    padding: var(--sp-8);
+    margin-bottom: var(--sp-6);
+    position: relative;
+  }
+  .module-card .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    background: var(--m-gold-500);
+    color: var(--m-ink);
+    padding: var(--sp-1) var(--sp-3);
+    border-radius: var(--r-sm);
+    margin-bottom: var(--sp-4);
+  }
+  .module-card .duration {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--m-slate-400);
+    margin-left: var(--sp-3);
+    letter-spacing: 0.05em;
+  }
+  .module-card h3 {
+    color: var(--m-slate-200);
+    margin-bottom: var(--sp-3);
+  }
+  .module-card .promise {
+    font-weight: 500;
+    color: var(--m-gold-300);
+    font-size: 16px;
+    margin-bottom: var(--sp-6);
+    font-style: italic;
+  }
+  .module-card ul {
+    list-style: none;
+    margin-bottom: var(--sp-6);
+  }
+  .module-card ul li {
+    position: relative;
+    padding: var(--sp-3) 0 var(--sp-3) var(--sp-6);
+    border-bottom: 1px solid var(--border-faint);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--m-slate-200);
+  }
+  .module-card ul li:last-child { border-bottom: none; }
+  .module-card ul li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    top: 14px;
+    color: var(--m-gold-500);
+    font-size: 8px;
+  }
+  .prize {
+    background: var(--m-gold-dim);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--r-md);
+    padding: var(--sp-4) var(--sp-5);
+    margin-top: var(--sp-4);
+    color: var(--m-slate-200);
+    font-size: 15px;
+  }
+  .prize strong {
+    color: var(--m-gold-300);
+    font-weight: 700;
+  }
+
+  /* ═══════════════════════════════════════════════
+     O QUE VOCÊ RECEBE
+  ═══════════════════════════════════════════════ */
+  .receive h2 { text-align: center; }
+  .receive ol {
+    list-style: none;
+    counter-reset: receive;
+    margin: var(--sp-8) 0;
+  }
+  .receive ol li {
+    counter-increment: receive;
+    position: relative;
+    padding: var(--sp-4) 0 var(--sp-4) var(--sp-12);
+    border-bottom: 1px solid var(--border-faint);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  .receive ol li::before {
+    content: counter(receive, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: var(--sp-4);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--m-gold-500);
+    letter-spacing: 0.1em;
+  }
+  .receive ol li::after {
+    content: "✓";
+    position: absolute;
+    left: 36px;
+    top: 15px;
+    color: var(--m-gold-300);
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .receive .footer-line {
+    text-align: center;
+    color: var(--m-slate-400);
+    font-style: italic;
+    margin-top: var(--sp-8);
+  }
+
+  /* ═══════════════════════════════════════════════
+     PARA QUEM É / NÃO É
+  ═══════════════════════════════════════════════ */
+  .audience { background: var(--m-midnight-950); }
+  .audience h2 { text-align: center; }
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-6);
+    margin-top: var(--sp-8);
+  }
+  .audience-col {
+    background: var(--m-midnight-800);
+    border-radius: var(--r-lg);
+    padding: var(--sp-6);
+    border: 1px solid var(--border-soft);
+  }
+  .audience-col.positive { border-top: 3px solid var(--m-success); }
+  .audience-col.negative { border-top: 3px solid var(--m-danger); }
+  .audience-col h4 {
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-5);
+    font-family: var(--font-mono);
+  }
+  .audience-col.positive h4 { color: var(--m-success); }
+  .audience-col.negative h4 { color: var(--m-danger); }
+  .audience-col ul { list-style: none; }
+  .audience-col ul li {
+    position: relative;
+    padding: var(--sp-3) 0 var(--sp-3) var(--sp-6);
+    border-bottom: 1px solid var(--border-faint);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .audience-col ul li:last-child { border-bottom: none; }
+  .audience-col.positive ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: var(--sp-3);
+    color: var(--m-success);
+    font-weight: 700;
+  }
+  .audience-col.negative ul li::before {
+    content: "×";
+    position: absolute;
+    left: 0;
+    top: var(--sp-3);
+    color: var(--m-danger);
+    font-weight: 700;
+    font-size: 18px;
+  }
+  @media (max-width: 620px) {
+    .audience-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ═══════════════════════════════════════════════
+     OFERTA
+  ═══════════════════════════════════════════════ */
+  .offer .offer-box {
+    background: var(--m-midnight-800);
+    border-top: 3px solid var(--m-gold-500);
+    border-radius: var(--r-lg);
+    padding: var(--sp-10);
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  .offer .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--m-gold-500);
+    margin-bottom: var(--sp-4);
+  }
+  .offer .title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--m-slate-200);
+    margin-bottom: var(--sp-4);
+  }
+  .offer .price {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 72px;
+    color: var(--m-gold-300);
+    line-height: 1;
+    margin: var(--sp-6) 0 var(--sp-2);
+    letter-spacing: -0.03em;
+  }
+  .offer .price-sub {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--m-slate-400);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-8);
+  }
+  .offer .includes {
+    text-align: left;
+    margin: var(--sp-8) auto;
+    max-width: 480px;
+    background: var(--m-midnight-950);
+    border-radius: var(--r-md);
+    padding: var(--sp-6);
+  }
+  .offer .includes-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--m-slate-400);
+    margin-bottom: var(--sp-3);
+  }
+  .offer .includes ul { list-style: none; }
+  .offer .includes ul li {
+    padding: var(--sp-2) 0 var(--sp-2) var(--sp-6);
+    position: relative;
+    font-size: 15px;
+    color: var(--m-slate-200);
+  }
+  .offer .includes ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: var(--sp-2);
+    color: var(--m-gold-500);
+    font-weight: 700;
+  }
+  .offer .guarantee {
+    background: var(--m-gold-dim);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--r-md);
+    padding: var(--sp-6);
+    margin: var(--sp-8) 0;
+    text-align: left;
+  }
+  .offer .guarantee .g-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: var(--m-gold-300);
+    font-size: 17px;
+    margin-bottom: var(--sp-3);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+  .offer .guarantee .g-title::before {
+    content: "◆";
+    color: var(--m-gold-500);
+  }
+  .offer .guarantee p {
+    font-size: 15px;
+    color: var(--m-slate-200);
+    line-height: 1.55;
+  }
+  .offer .math {
+    font-size: 15px;
+    color: var(--m-slate-400);
+    font-style: italic;
+    margin-bottom: var(--sp-8);
+    padding: var(--sp-4) 0;
+    border-top: 1px solid var(--border-faint);
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .offer .math strong { color: var(--m-slate-200); font-weight: 500; font-style: normal; }
+  .offer .cta-sub {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--m-slate-400);
+    margin-top: var(--sp-4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ═══════════════════════════════════════════════
+     FAQ (CSS-only accordion)
+  ═══════════════════════════════════════════════ */
+  .faq { background: var(--m-midnight-950); }
+  .faq h2 { text-align: center; }
+  .faq details {
+    background: var(--m-midnight-800);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-md);
+    margin-bottom: var(--sp-3);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .faq details[open] {
+    border-color: var(--border-gold);
+  }
+  .faq summary {
+    cursor: pointer;
+    padding: var(--sp-5) var(--sp-6);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--m-slate-200);
+    list-style: none;
+    position: relative;
+    padding-right: var(--sp-12);
+    line-height: 1.4;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+";
+    position: absolute;
+    right: var(--sp-6);
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 24px;
+    color: var(--m-gold-500);
+    transition: transform 0.2s ease;
+  }
+  .faq details[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .faq details[open] summary { color: var(--m-gold-300); }
+  .faq .faq-body {
+    padding: 0 var(--sp-6) var(--sp-6);
+    color: var(--m-slate-200);
+    font-size: 15px;
+    line-height: 1.65;
+    border-top: 1px solid var(--border-faint);
+    padding-top: var(--sp-5);
+  }
+
+  /* ═══════════════════════════════════════════════
+     CTA FINAL
+  ═══════════════════════════════════════════════ */
+  .final-cta {
+    background:
+      radial-gradient(ellipse at center, var(--m-gold-glow) 0%, transparent 60%),
+      var(--m-midnight-950);
+    text-align: center;
+    padding: var(--sp-24) 0;
+    border-top: 1px solid var(--border-faint);
+  }
+  .final-cta .anchor {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.15;
+    color: var(--m-slate-200);
+    margin-bottom: var(--sp-4);
+    letter-spacing: -0.02em;
+  }
+  .final-cta .sub {
+    font-size: 20px;
+    color: var(--m-gold-300);
+    margin-bottom: var(--sp-10);
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════════════ */
+  footer {
+    background: var(--m-midnight-900);
+    border-top: 1px solid var(--border-faint);
+    padding: var(--sp-10) 0;
+    text-align: center;
+  }
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--m-slate-600);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE REFINEMENTS
+  ═══════════════════════════════════════════════ */
+  @media (max-width: 600px) {
+    section { padding: var(--sp-16) 0; }
+    .hero { padding: var(--sp-20) 0 var(--sp-16); }
+    .instructor-card, .what-is .box, .module-card { padding: var(--sp-6); }
+    .offer .offer-box { padding: var(--sp-6); }
+    .offer .price { font-size: 56px; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">MAESTRO PALCO · Curso</div>
+    <h1>
+      Você toca bem.
+      <span class="highlight">O problema nunca foi esse.</span>
+    </h1>
+    <p class="subheadline">
+      O que está faltando é a parte que ninguém te ensinou: <strong>quanto cobrar</strong>, <strong>o que dizer quando perguntam o que você faz</strong>, e <strong>como manter clientes chegando sem depender de sorte</strong>.
+    </p>
+    <a href="#oferta" class="btn-cta">Quero estruturar minha carreira</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     IDENTIFICAÇÃO
+════════════════════════════════════════════════ -->
+<section class="identification">
+  <div class="container">
+    <p class="intro">Se você é músico (musicista) profissional, provavelmente já viveu isso:</p>
+    <ul class="ident-list">
+      <li>Recebeu uma proposta de trabalho e travou na hora de dizer o preço — acabou cobrando menos do que deveria, de novo.</li>
+      <li>Tem clientes agora, mas sabe que se um sumir na semana que vem, você fica perdido.</li>
+      <li>Alguém te perguntou "o que você faz exatamente?" e você deu uma resposta longa, cheia de volta, que nem você ficou satisfeito.</li>
+      <li>Terminou o mês trabalhando o dobro do que deveria e, mesmo assim, não sobrou dinheiro.</li>
+      <li>Tentou postar com consistência, durou 12 dias, parou.</li>
+      <li>Sabe que tem valor. Não sabe como transformar isso em um negócio que se sustenta.</li>
+    </ul>
+    <p class="closing">Se você se reconheceu em pelo menos três dessas frases, continua lendo.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PROBLEMA REAL
+════════════════════════════════════════════════ -->
+<section class="problem">
+  <div class="container">
+    <h2>O problema real</h2>
+    <p class="lead">O problema nunca foi talento.</p>
+    <p>Você não toca mal. Você não é preguiçoso. Você não tem falta de vontade.</p>
+    <p class="lead">O que você não tem é estrutura.</p>
+    <p>Música profissional no Brasil quase sempre é ensinada como arte — e isso está certo. O problema é que ninguém senta com você para explicar a outra metade: como calcular um preço que fecha, como posicionar o que você faz em uma frase, como criar um sistema que não depende da sua memória nem da sua sorte.</p>
+    <p>Você ficou bom no instrumento. Aprendeu sozinho a lidar com cliente, proposta, orçamento, rede social, imposto, divulgação. Aprendeu errado em alguns lugares. Aprendeu pela metade em outros. Em alguns, nem aprendeu — foi improvisando.</p>
+
+    <div class="emphasis-block">
+      <span class="emphasis">É por isso que você trabalha muito e ganha pouco.</span>
+      <span class="emphasis">É por isso que sua carreira parece uma linha quebrada, não uma linha que sobe.</span>
+      <span class="emphasis">É por isso que você está cansado.</span>
+    </div>
+
+    <p class="signoff">Não é culpa sua. Mas a solução passa por você.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     INSTRUTOR
+════════════════════════════════════════════════ -->
+<section class="instructor">
+  <div class="container">
+    <h2>Quem está falando com você</h2>
+    <div class="instructor-card" style="display:flex;gap:32px;align-items:flex-start;">
+      <img src="/Users/edilsonmorais/Desktop/foto edilson PV.png" alt="Edilson Morais no palco" style="width:220px;min-width:220px;border-radius:8px;object-fit:cover;flex-shrink:0;">
+      <div>
+        <p class="name">Meu nome é Edilson Morais.</p>
+        <p>Sou músico como você.</p>
+        <p>Trabalhei ao lado de <strong>Marcos Suzano</strong> na co-produção do <strong>Suzano Express</strong> — um dos projetos de percussão mais respeitados do país. Vivi por dentro o que separa o músico que toca bem do músico que consegue viver da música com dignidade.</p>
+        <p class="punch">Não é mais talento. É estrutura.</p>
+        <p>Passei quinze anos entendendo, na prática, como artista se transforma em profissional sem deixar de ser artista. Observando o que funciona. Anotando o que ninguém conta. Testando na minha própria carreira e na de colegas que me pediam ajuda.</p>
+        <p>O MAESTRO PALCO é o que eu gostaria de ter recebido pronto aos 25 anos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     O QUE É
+════════════════════════════════════════════════ -->
+<section class="what-is">
+  <div class="container">
+    <h2>O que é o MAESTRO PALCO</h2>
+    <div class="box">
+      <p>MAESTRO PALCO é um <strong>curso online de 23 aulas</strong> que te entrega, ao final, um documento de <strong>8 páginas chamado "Meu Sistema"</strong> — com o seu posicionamento, seu preço calculado, seu mapa de receitas, sua pauta de conteúdo e seu plano de 90 dias preenchidos.</p>
+
+      <div class="not-list">
+        <p>Não é um curso sobre motivação.</p>
+        <p>Não é sobre mentalidade.</p>
+        <p>Não é sobre "acreditar no seu sonho".</p>
+      </div>
+
+      <p>É sobre sentar, abrir o PDF, e sair do outro lado com a <strong>estrutura da sua carreira escrita</strong> — não na sua cabeça, no papel.</p>
+
+      <div class="stats">
+        <div class="stat"><span class="num">4</span><span class="lbl">Módulos</span></div>
+        <div class="stat"><span class="num">23</span><span class="lbl">Aulas</span></div>
+        <div class="stat"><span class="num">~5h</span><span class="lbl">Conteúdo</span></div>
+        <div class="stat"><span class="num">8pg</span><span class="lbl">Meu Sistema</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     MÓDULOS
+════════════════════════════════════════════════ -->
+<section class="modules">
+  <div class="container">
+    <h2>Os 4 módulos</h2>
+    <p class="subtitle">Você faz no seu ritmo. Cada módulo entrega uma peça do "Meu Sistema".</p>
+
+    <!-- MÓDULO 1 -->
+    <div class="module-card">
+      <span class="badge">M1 · IDENTIDADE</span>
+      <span class="duration">≈54 min</span>
+      <h3>Identidade</h3>
+      <p class="promise">Você sai sabendo explicar o que faz em uma frase, sem volta.</p>
+      <ul>
+        <li>Descobrir em qual dos 4 perfis do músico profissional você se encaixa — e parar de tentar ser quatro coisas ao mesmo tempo.</li>
+        <li>Diferenciar habilidade (o que você sabe fazer) de ativo (o que paga sua conta) — a maioria dos músicos confunde e trabalha no lugar errado.</li>
+        <li>Os 3 bloqueios reais que travam músico bom de virar músico profissional. Nenhum deles é técnico.</li>
+        <li>A fórmula de posicionamento: uma frase que responde "o que você faz?" sem deixar o outro lado confuso.</li>
+        <li>Como usar a sua história — inclusive os tropeços — como diferencial, em vez de esconder.</li>
+      </ul>
+      <div class="prize">🏆 <strong>Prêmio:</strong> Biblioteca de Posicionamentos — 20 exemplos reais, organizados por perfil.</div>
+    </div>
+
+    <!-- MÓDULO 2 -->
+    <div class="module-card">
+      <span class="badge">M2 · FINANCEIRO</span>
+      <span class="duration">≈69 min</span>
+      <h3>Financeiro</h3>
+      <p class="promise">Você sai com o seu preço calculado e seu mapa de receita no papel.</p>
+      <ul>
+        <li>Os 6 tipos de receita que todo músico profissional pode ter — e quais combinam com o seu perfil.</li>
+        <li>Diferença entre receita bruta e lucro real — por que músico que fatura R$10 mil no mês às vezes termina no vermelho.</li>
+        <li>Fórmula de precificação por margem: como chegar no preço justo para você e honesto para o cliente, sem chutar.</li>
+        <li>O modelo de renda ideal para cada um dos 4 perfis — você não precisa inventar, só adaptar.</li>
+        <li>Quick wins: 3 ajustes de preço e cobrança que você faz esta semana e já sente no próximo pagamento.</li>
+        <li>Como construir uma segunda fonte de renda sem parar de tocar — e sem vender curso online.</li>
+      </ul>
+      <div class="prize">🏆 <strong>Prêmio:</strong> Calculadora de Precificação — planilha pronta, você preenche 4 campos e ela te devolve o preço.</div>
+    </div>
+
+    <!-- MÓDULO 3 -->
+    <div class="module-card">
+      <span class="badge">M3 · SISTEMA</span>
+      <span class="duration">≈68 min</span>
+      <h3>Sistema e Presença</h3>
+      <p class="promise">Você sai com 3 processos escritos e uma pauta de conteúdo de 15 semanas.</p>
+      <ul>
+        <li>O que é sistema, na prática — por que sem isso você é refém de cada agenda que aparece.</li>
+        <li>Os 3 processos mínimos que todo músico profissional precisa ter escrito — e por que escrito, não na cabeça.</li>
+        <li>Como ser encontrado por quem precisa do seu trabalho, sem depender de indicação.</li>
+        <li>As 5 categorias de conteúdo que funcionam para músico — e o que nunca postar.</li>
+        <li>O funil que transforma mensagem de Instagram em cliente pagante, sem vendedor.</li>
+        <li>Parcerias estratégicas: com quem trocar, como propor, como não queimar a ponte.</li>
+      </ul>
+      <div class="prize">🏆 <strong>Prêmio:</strong> 30 Perguntas que Viram Conteúdo — pauta de 15 semanas, 2 posts por semana.</div>
+    </div>
+
+    <!-- MÓDULO 4 -->
+    <div class="module-card">
+      <span class="badge">M4 · PLANO 90D</span>
+      <span class="duration">≈68 min</span>
+      <h3>Plano de 90 dias</h3>
+      <p class="promise">Você sai com o plano escrito — semana por semana — dos próximos 3 meses.</p>
+      <ul>
+        <li>Por que 90% dos planos de músico não saem do papel — e o que os outros 10% fazem diferente.</li>
+        <li>Como escolher 3 caminhos de renda, priorizar e não tentar tudo de uma vez.</li>
+        <li>A semana 1 completa: o que fazer a partir de amanhã, dia por dia.</li>
+        <li>Como estruturar a sua semana para caber ensaio, estudo, trabalho pago e prospecção — sem queimar.</li>
+        <li>As 3 métricas que importam de verdade (e as 20 que não importam e você vai deixar de olhar).</li>
+        <li>O que vem depois dos 90 dias — como atualizar o plano sem começar do zero.</li>
+      </ul>
+      <div class="prize">🏆 <strong>Prêmio:</strong> Template de Proposta Comercial — documento pronto para mandar ao próximo cliente.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     O QUE VOCÊ RECEBE
+════════════════════════════════════════════════ -->
+<section class="receive">
+  <div class="container">
+    <h2>O que você recebe</h2>
+    <ol>
+      <li>Acesso às 23 aulas (aproximadamente 5 horas, no seu ritmo)</li>
+      <li>PDF "Meu Sistema" — 8 páginas que você preenche durante o curso</li>
+      <li>Biblioteca de Posicionamentos — 20 exemplos reais por perfil</li>
+      <li>Calculadora de Precificação — planilha pronta</li>
+      <li>30 Perguntas que Viram Conteúdo — pauta de 15 semanas</li>
+      <li>Template de Proposta Comercial — documento para usar com o próximo cliente</li>
+    </ol>
+    <p class="footer-line">Tudo junto, em uma área de membros simples. Sem enrolação.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PARA QUEM É / NÃO É
+════════════════════════════════════════════════ -->
+<section class="audience">
+  <div class="container">
+    <h2>Para quem é — e para quem não é</h2>
+    <div class="audience-grid">
+      <div class="audience-col positive">
+        <h4>Para quem é</h4>
+        <ul>
+          <li>Você já vive de música (ou parte dela) — trabalha com percussão, instrumento, aulas, produção ou conteúdo musical.</li>
+          <li>Você sabe tocar. O problema não é técnica, é estrutura.</li>
+          <li>Você está cansado de improvisar preço, proposta, divulgação e plano.</li>
+          <li>Você quer viver de música com dignidade — sem abrir mão de ser artista.</li>
+        </ul>
+      </div>
+      <div class="audience-col negative">
+        <h4>Não é para você se</h4>
+        <ul>
+          <li>Você nunca trabalhou com música e está procurando um curso de "como começar".</li>
+          <li>Você quer fórmula mágica, promessa de milhão em 30 dias, ou "segredo" que ninguém conta.</li>
+          <li>Você não quer preencher nada — só assistir.</li>
+          <li>Você já tem uma carreira estruturada, com sistema, preço calculado e renda previsível.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     OFERTA
+════════════════════════════════════════════════ -->
+<section class="offer" id="oferta">
+  <div class="container">
+    <div class="offer-box">
+      <div class="eyebrow">A oferta</div>
+      <div class="title">MAESTRO PALCO</div>
+      <div class="price">R$397</div>
+      <div class="price-sub">Pagamento único · Acesso vitalício</div>
+
+      <div class="includes">
+        <div class="includes-title">Incluso</div>
+        <ul>
+          <li>23 aulas (aproximadamente 5 horas)</li>
+          <li>PDF "Meu Sistema" (8 páginas)</li>
+          <li>Biblioteca de Posicionamentos</li>
+          <li>Calculadora de Precificação</li>
+          <li>30 Perguntas que Viram Conteúdo</li>
+          <li>Template de Proposta Comercial</li>
+          <li>Acesso vitalício</li>
+        </ul>
+      </div>
+
+      <div class="guarantee">
+        <div class="g-title">Garantia de 15 dias</div>
+        <p>Se você entrar, assistir as primeiras aulas, começar a preencher o PDF e sentir que não é para você — pede reembolso por email, devolvemos o valor integral. Sem justificativa, sem formulário longo, sem pergunta. O risco é meu, não seu.</p>
+      </div>
+
+      <p class="math">Para contexto: <strong>R$397 é menos do que a maioria dos músicos profissionais cobra por uma única apresentação.</strong> Se o que você aprende aqui te faz cobrar R$100 a mais no próximo trabalho, o curso se pagou.</p>
+
+      <a href="https://chk.eduzz.com/Q9N2342Z01?utm_source=PV&utm_medium=link&utm_campaign=maestro+palco&utm_id=04+2026" class="btn-cta btn-cta-lg">Quero estruturar minha carreira — R$397</a>
+      <p class="cta-sub">Acesso imediato · Garantia de 15 dias</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FAQ
+════════════════════════════════════════════════ -->
+<section class="faq">
+  <div class="container">
+    <h2>Perguntas frequentes</h2>
+
+    <details>
+      <summary>Não tenho tempo de fazer curso. Como isso funciona?</summary>
+      <div class="faq-body">
+        São 23 aulas curtas, somando aproximadamente 5 horas. Você pode fazer uma aula por dia em ~15 minutos, e terminar em menos de um mês. Ou fazer um módulo por fim de semana. O conteúdo fica disponível — você não precisa acompanhar turma, live, calendário. Faz quando dá.
+      </div>
+    </details>
+
+    <details>
+      <summary>Já tentei outros cursos antes e não mudou nada. Por que este seria diferente?</summary>
+      <div class="faq-body">
+        Porque este não é para você assistir. É para você preencher. O objetivo final do curso não é você "saber mais sobre sua carreira" — é você terminar com 8 páginas preenchidas, com o seu posicionamento, o seu preço, a sua pauta e o seu plano no papel. Se você só assistir, o curso não funciona. Se você preencher, funciona. A diferença está no formato, não no conteúdo.
+      </div>
+    </details>
+
+    <details>
+      <summary>Sou percussionista/baterista/baixista/cantor/professor. O curso é para mim?</summary>
+      <div class="faq-body">
+        Sim. O MAESTRO PALCO foi desenhado em cima dos 4 perfis do músico profissional — músico intérprete, professor, produtor/criador de conteúdo, e empreendedor musical. Independente do instrumento, você provavelmente se encaixa em um desses perfis (ou entre dois). As aulas mostram como adaptar o conteúdo para cada perfil.
+      </div>
+    </details>
+
+    <details>
+      <summary>Isso é para quem tem muitos seguidores e muitos clientes. Não é meu caso.</summary>
+      <div class="faq-body">
+        Exatamente o contrário. Se você já tivesse muitos clientes e uma estrutura rodando, não precisaria deste curso. O MAESTRO PALCO é para o músico que está no meio — já trabalha com música, já tem algum cliente, já toca há um tempo, mas nunca sentou para estruturar.
+      </div>
+    </details>
+
+    <details>
+      <summary>Não sou bom com números nem com planilha. Consigo acompanhar?</summary>
+      <div class="faq-body">
+        Consegue. Não tem cálculo complexo em nenhum ponto. A Calculadora de Precificação é uma planilha com 4 campos — você preenche, ela te devolve o preço. O conteúdo financeiro é ensinado como música: em partes, com exemplo, passo a passo. Se você consegue contar compasso, você consegue fazer a parte financeira deste curso.
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CTA FINAL
+════════════════════════════════════════════════ -->
+<section class="final-cta">
+  <div class="container">
+    <p class="anchor">Pare de escolher entre ser artista e ser profissional.</p>
+    <p class="sub">Você pode ser os dois. Mas precisa da estrutura.</p>
+    <a href="https://chk.eduzz.com/Q9N2342Z01?utm_source=PV&utm_medium=link&utm_campaign=maestro+palco&utm_id=04+2026" class="btn-cta btn-cta-lg">Quero o MAESTRO PALCO — R$397</a>
+    <p style="font-family: var(--font-mono); font-size: 12px; color: var(--m-slate-400); margin-top: var(--sp-5); letter-spacing: 0.1em; text-transform: uppercase;">
+      Acesso imediato · 15 dias de garantia · Sem pergunta
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <p>
+      EDILSON MORAIS — músico, co-produtor do Suzano Express<br>
+      ao lado de Marcos Suzano, criador do MAESTRO PALCO.
+    </p>
+    <p style="margin-top:16px;">
+      <a href="https://politica-de-privacidade.rota50ia.com/" target="_blank" style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-decoration:none;border-bottom:1px solid rgba(148,163,184,0.3);">Política de Privacidade</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
