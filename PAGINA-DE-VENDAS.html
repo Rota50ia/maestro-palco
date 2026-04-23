@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAESTRO PALCO — Estruture sua carreira de músico profissional</title>
-<meta name="description" content="23 aulas. 5 horas. Um documento de 8 páginas com seu posicionamento, preço, pauta e plano de 90 dias — no papel, não na sua cabeça.">
+<meta name="description" content="23 aulas. 2h30min para mudar sua carreira. Um documento de 8 páginas com seu posicionamento, preço, pauta e plano de 90 dias — no papel, não na sua cabeça.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -160,40 +160,8 @@
     background:
       radial-gradient(ellipse at top, var(--m-gold-glow) 0%, transparent 55%),
       var(--m-midnight-900);
+    text-align: center;
     border-bottom: 1px solid var(--border-faint);
-  }
-  .hero .container {
-    max-width: 1120px;
-  }
-  .hero-inner {
-    display: flex;
-    align-items: center;
-    gap: var(--sp-16);
-  }
-  .hero-text {
-    flex: 1 1 440px;
-    min-width: 0;
-  }
-  .hero-video {
-    flex: 0 0 520px;
-    width: 520px;
-  }
-  .hero-video-wrap {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    border-radius: var(--r-xl);
-    overflow: hidden;
-    background: var(--m-midnight-950);
-    border: 1px solid var(--border-gold);
-    box-shadow: 0 8px 48px rgba(201, 168, 76, 0.12);
-  }
-  .hero-video-wrap iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
   }
   .hero .eyebrow {
     font-family: var(--font-mono);
@@ -216,26 +184,13 @@
     font-size: 19px;
     line-height: 1.55;
     color: var(--m-slate-400);
-    margin-bottom: var(--sp-10);
+    max-width: 600px;
+    margin: 0 auto var(--sp-10);
     font-weight: 400;
   }
   .hero .subheadline strong {
     color: var(--m-slate-200);
     font-weight: 500;
-  }
-  @media (max-width: 860px) {
-    .hero-inner {
-      flex-direction: column;
-      text-align: center;
-    }
-    .hero-video {
-      flex: none;
-      width: 100%;
-    }
-    .hero .subheadline {
-      margin-left: auto;
-      margin-right: auto;
-    }
   }
 
   /* ═══════════════════════════════════════════════
@@ -837,24 +792,15 @@
 ════════════════════════════════════════════════ -->
 <section class="hero">
   <div class="container">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <div class="eyebrow">MAESTRO PALCO · Curso</div>
-        <h1>
-          Você toca bem.
-          <span class="highlight">O problema nunca foi esse.</span>
-        </h1>
-        <p class="subheadline">
-          O que está faltando é a parte que ninguém te ensinou: <strong>quanto cobrar</strong>, <strong>o que dizer quando perguntam o que você faz</strong>, e <strong>como manter clientes chegando sem depender de sorte</strong>.
-        </p>
-        <a href="#oferta" class="btn-cta">Quero estruturar minha carreira</a>
-      </div>
-      <div class="hero-video">
-        <div class="hero-video-wrap">
-          <iframe src="https://player.vimeo.com/video/1185340463?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" title="MAESTRO PALCO — VSL"></iframe>
-        </div>
-      </div>
-    </div>
+    <div class="eyebrow">MAESTRO PALCO · Curso</div>
+    <h1>
+      Você toca bem.
+      <span class="highlight">O problema nunca foi esse.</span>
+    </h1>
+    <p class="subheadline">
+      O que está faltando é a parte que ninguém te ensinou: <strong>quanto cobrar</strong>, <strong>o que dizer quando perguntam o que você faz</strong>, e <strong>como manter clientes chegando sem depender de sorte</strong>.
+    </p>
+    <a href="#oferta" class="btn-cta">Quero estruturar minha carreira</a>
   </div>
 </section>
 
@@ -905,7 +851,7 @@
   <div class="container">
     <h2>Quem está falando com você</h2>
     <div class="instructor-card" style="display:flex;gap:32px;align-items:flex-start;">
-      <img src="/Users/edilsonmorais/Desktop/foto edilson PV.png" alt="Edilson Morais no palco" style="width:220px;min-width:220px;border-radius:8px;object-fit:cover;flex-shrink:0;">
+      <img src="foto-edilson.png" alt="Edilson Morais no palco" style="width:220px;min-width:220px;border-radius:8px;object-fit:cover;flex-shrink:0;">
       <div>
         <p class="name">Meu nome é Edilson Morais.</p>
         <p>Sou músico como você.</p>
@@ -938,7 +884,7 @@
       <div class="stats">
         <div class="stat"><span class="num">4</span><span class="lbl">Módulos</span></div>
         <div class="stat"><span class="num">23</span><span class="lbl">Aulas</span></div>
-        <div class="stat"><span class="num">~5h</span><span class="lbl">Conteúdo</span></div>
+        <div class="stat"><span class="num">2h30</span><span class="lbl">Para mudar</span></div>
         <div class="stat"><span class="num">8pg</span><span class="lbl">Meu Sistema</span></div>
       </div>
     </div>
@@ -966,7 +912,7 @@
         <li>A fórmula de posicionamento: uma frase que responde "o que você faz?" sem deixar o outro lado confuso.</li>
         <li>Como usar a sua história — inclusive os tropeços — como diferencial, em vez de esconder.</li>
       </ul>
-      <div class="prize">🏆 <strong>Prêmio:</strong> Biblioteca de Posicionamentos — 20 exemplos reais, organizados por perfil.</div>
+      <div class="prize">🏆 <strong>Prêmio:</strong> Auditoria de Presença Visual — checklist interativo para diagnosticar e corrigir como você aparece online.</div>
     </div>
 
     <!-- MÓDULO 2 -->
@@ -983,7 +929,7 @@
         <li>Quick wins: 3 ajustes de preço e cobrança que você faz esta semana e já sente no próximo pagamento.</li>
         <li>Como construir uma segunda fonte de renda sem parar de tocar — e sem vender curso online.</li>
       </ul>
-      <div class="prize">🏆 <strong>Prêmio:</strong> Calculadora de Precificação — planilha pronta, você preenche 4 campos e ela te devolve o preço.</div>
+      <div class="prize">🏆 <strong>Prêmio:</strong> Calculadora de Precificação — ferramenta interativa: você entra com sua meta e custos, ela devolve o seu preço mínimo por serviço.</div>
     </div>
 
     <!-- MÓDULO 3 -->
@@ -1029,10 +975,10 @@
   <div class="container">
     <h2>O que você recebe</h2>
     <ol>
-      <li>Acesso às 23 aulas (aproximadamente 5 horas, no seu ritmo)</li>
+      <li>Acesso às 23 aulas (2h30min — no seu ritmo)</li>
       <li>PDF "Meu Sistema" — 8 páginas que você preenche durante o curso</li>
-      <li>Biblioteca de Posicionamentos — 20 exemplos reais por perfil</li>
-      <li>Calculadora de Precificação — planilha pronta</li>
+      <li>Auditoria de Presença Visual — checklist interativo do M1</li>
+      <li>Calculadora de Precificação — ferramenta interativa do M2</li>
       <li>30 Perguntas que Viram Conteúdo — pauta de 15 semanas</li>
       <li>Template de Proposta Comercial — documento para usar com o próximo cliente</li>
     </ol>
@@ -1083,9 +1029,9 @@
       <div class="includes">
         <div class="includes-title">Incluso</div>
         <ul>
-          <li>23 aulas (aproximadamente 5 horas)</li>
+          <li>23 aulas (2h30min de vídeo)</li>
           <li>PDF "Meu Sistema" (8 páginas)</li>
-          <li>Biblioteca de Posicionamentos</li>
+          <li>Auditoria de Presença Visual</li>
           <li>Calculadora de Precificação</li>
           <li>30 Perguntas que Viram Conteúdo</li>
           <li>Template de Proposta Comercial</li>
@@ -1116,7 +1062,7 @@
     <details>
       <summary>Não tenho tempo de fazer curso. Como isso funciona?</summary>
       <div class="faq-body">
-        São 23 aulas curtas, somando aproximadamente 5 horas. Você pode fazer uma aula por dia em ~15 minutos, e terminar em menos de um mês. Ou fazer um módulo por fim de semana. O conteúdo fica disponível — você não precisa acompanhar turma, live, calendário. Faz quando dá.
+        São 23 aulas curtas, somando 2h30min de vídeo. Você pode fazer uma aula por dia em ~7 minutos, e terminar em menos de um mês. Ou fazer um módulo por fim de semana. O conteúdo fica disponível — você não precisa acompanhar turma, live, calendário. Faz quando dá.
       </div>
     </details>
 
@@ -1144,7 +1090,7 @@
     <details>
       <summary>Não sou bom com números nem com planilha. Consigo acompanhar?</summary>
       <div class="faq-body">
-        Consegue. Não tem cálculo complexo em nenhum ponto. A Calculadora de Precificação é uma planilha com 4 campos — você preenche, ela te devolve o preço. O conteúdo financeiro é ensinado como música: em partes, com exemplo, passo a passo. Se você consegue contar compasso, você consegue fazer a parte financeira deste curso.
+        Consegue. Não tem cálculo complexo em nenhum ponto. A Calculadora de Precificação é uma ferramenta interativa — você entra com sua meta mensal e custos, ela devolve o preço mínimo por tipo de serviço. O conteúdo financeiro é ensinado como música: em partes, com exemplo, passo a passo. Se você consegue contar compasso, você consegue fazer a parte financeira deste curso.
       </div>
     </details>
   </div>
