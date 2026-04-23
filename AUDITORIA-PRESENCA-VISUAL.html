@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria de Presença Visual — Maestro Palco</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --m-midnight-950: #141422;
+    --m-midnight-900: #1C1C2E;
+    --m-midnight-800: #23233A;
+    --m-midnight-700: #2D2D4A;
+    --m-midnight-600: #37376A;
+    --m-gold-500: #C9A84C;
+    --m-gold-400: #DFBE62;
+    --m-gold-300: #F0D080;
+    --m-gold-200: #FFE399;
+    --m-gold-100: #FFEFC2;
+    --m-slate-200: #E2E8F0;
+    --m-slate-400: #94A3B8;
+    --m-slate-500: #64748B;
+    --bg:          var(--m-midnight-900);
+    --bg-card:     var(--m-midnight-800);
+    --bg-elevated: var(--m-midnight-700);
+    --bg-deep:     var(--m-midnight-950);
+    --text:        var(--m-slate-200);
+    --text-muted:  var(--m-slate-400);
+    --text-faint:  var(--m-slate-500);
+    --accent:      var(--m-gold-500);
+    --accent-bg:   rgba(201,168,76,0.08);
+    --border:      rgba(148,163,184,0.12);
+    --border-strong: rgba(148,163,184,0.25);
+    --green:       #4ADE80;
+    --green-bg:    rgba(74,222,128,0.08);
+    --green-border:rgba(74,222,128,0.2);
+    --yellow:      #FBBF24;
+    --yellow-bg:   rgba(251,191,36,0.08);
+    --yellow-border:rgba(251,191,36,0.2);
+    --red:         #F87171;
+    --red-bg:      rgba(248,113,113,0.08);
+    --red-border:  rgba(248,113,113,0.2);
+    --font-display:'Montserrat','Arial Black',sans-serif;
+    --font-sans:   'Montserrat',-apple-system,sans-serif;
+    --font-mono:   'JetBrains Mono','Fira Code',monospace;
+    --ease: cubic-bezier(0.4,0,0.2,1);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+  .page-wrap { padding: 64px 0 96px; }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; top:40%; left:50%;
+    transform:translate(-50%,-50%);
+    width:480px; height:480px;
+    background:radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--accent);
+    display: block; margin-bottom: 20px;
+  }
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(32px,5vw,52px);
+    font-weight: 900; letter-spacing: 2px;
+    line-height: 1.05; margin-bottom: 12px;
+  }
+  .hero__separator {
+    width: 48px; height: 1px;
+    background: var(--accent); opacity: 0.5;
+    margin: 0 auto 16px;
+  }
+  .hero__sub {
+    font-size: 14px; color: var(--text-muted);
+    letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .hero__desc {
+    font-size: 13px; color: var(--text-faint);
+    max-width: 480px; margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* ── SCORE BAR ── */
+  .score-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-deep);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 16px;
+  }
+  .score-bar__label {
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-faint);
+    white-space: nowrap;
+  }
+  .score-bar__track {
+    flex: 1; height: 6px;
+    background: var(--bg-elevated);
+    border-radius: 999px; overflow: hidden;
+  }
+  .score-bar__fill {
+    height: 100%; width: 0%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.4s var(--ease), background 0.4s var(--ease);
+  }
+  .score-bar__count {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 900;
+    color: var(--accent); white-space: nowrap;
+    min-width: 56px; text-align: right;
+    transition: color 0.3s;
+  }
+
+  /* ── CATEGORY SECTION ── */
+  .cat-section { margin: 40px 0 0; }
+
+  .cat-header {
+    display: flex; align-items: stretch;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 6px;
+  }
+  .cat-header__badge {
+    background: var(--accent);
+    color: #0A0A14;
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 900;
+    letter-spacing: 1px;
+    display: flex; align-items: center;
+    justify-content: center;
+    min-width: 52px; padding: 12px 8px;
+  }
+  .cat-header__body {
+    background: var(--bg-card);
+    padding: 14px 20px; flex: 1;
+  }
+  .cat-header__title {
+    font-size: 15px; font-weight: 700; color: var(--text);
+    margin-bottom: 2px;
+  }
+  .cat-header__meta {
+    font-family: var(--font-mono);
+    font-size: 10px; color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── ITEM CARD ── */
+  .item-list { display: flex; flex-direction: column; gap: 3px; }
+
+  .item-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s var(--ease);
+  }
+  .item-card:hover { border-color: var(--border-strong); }
+  .item-card.state-ok     { border-color: var(--green-border); background: rgba(74,222,128,0.04); }
+  .item-card.state-warn   { border-color: var(--yellow-border); background: rgba(251,191,36,0.04); }
+  .item-card.state-fail   { border-color: var(--red-border); background: rgba(248,113,113,0.04); }
+
+  .item-card__main {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: start; gap: 0;
+  }
+  .item-card__num {
+    background: var(--bg-deep);
+    border-right: 1px solid var(--border);
+    display: flex; align-items: center;
+    justify-content: center;
+    padding: 18px 6px;
+    font-family: var(--font-mono);
+    font-size: 11px; color: var(--accent);
+    font-weight: 500;
+    align-self: stretch;
+  }
+  .item-card__body {
+    padding: 14px 16px; flex: 1;
+  }
+  .item-card__question {
+    font-size: 14px; font-weight: 600;
+    color: var(--text); line-height: 1.5;
+    margin-bottom: 0;
+  }
+  .item-card__controls {
+    display: flex; flex-direction: column;
+    gap: 3px; padding: 12px 12px 12px 8px;
+    align-self: center;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-state {
+    display: flex; align-items: center; gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-faint);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s var(--ease);
+  }
+  .btn-state:hover { border-color: var(--border-strong); color: var(--text-muted); }
+  .btn-state.active-ok   { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+  .btn-state.active-warn { background: var(--yellow-bg); border-color: var(--yellow-border); color: var(--yellow); }
+  .btn-state.active-fail { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+
+  /* ── FIX HINT (visível quando warn ou fail) ── */
+  .item-card__fix {
+    display: none;
+    padding: 10px 16px 14px 56px;
+    border-top: 1px solid var(--border);
+  }
+  .item-card.state-warn .item-card__fix,
+  .item-card.state-fail .item-card__fix { display: block; }
+
+  .item-card__fix-label {
+    font-family: var(--font-mono);
+    font-size: 9px; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 5px;
+  }
+  .item-card.state-warn .item-card__fix-label { color: var(--yellow); }
+  .item-card.state-fail .item-card__fix-label { color: var(--red); }
+
+  .item-card__fix-text {
+    font-size: 12px; color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  /* ── RESULTADO ── */
+  .resultado {
+    margin-top: 48px;
+    background: var(--bg-deep);
+    border: 1px solid var(--border-strong);
+    border-top: 2px solid var(--accent);
+    border-radius: 16px;
+    padding: 40px;
+    display: none;
+  }
+  .resultado.visible { display: block; }
+
+  .resultado__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 8px; display: block;
+  }
+  .resultado__score-display {
+    font-family: var(--font-display);
+    font-size: clamp(52px,8vw,80px);
+    font-weight: 900; line-height: 1;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  .resultado__score-label {
+    font-family: var(--font-mono);
+    font-size: 11px; color: var(--text-faint);
+    letter-spacing: 1px; margin-bottom: 24px;
+  }
+  .resultado__title {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 700;
+    color: var(--text); margin-bottom: 8px;
+  }
+  .resultado__desc {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.75; max-width: 560px;
+    margin-bottom: 24px;
+  }
+  .resultado__divider {
+    height: 1px; background: var(--border);
+    margin: 24px 0;
+  }
+  .resultado__fail-title {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 12px; display: block;
+  }
+  .resultado__fail-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .resultado__fail-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.55;
+    padding: 10px 14px;
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    border-radius: 6px;
+  }
+  .resultado__fail-dot {
+    color: var(--red); font-size: 11px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  .resultado__cta {
+    margin-top: 28px;
+    padding: 20px 24px;
+    background: var(--accent-bg);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 10px;
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .resultado__cta strong { color: var(--accent); }
+
+  /* ── BTN CALCULAR ── */
+  .btn-calcular {
+    display: block; width: 100%;
+    margin-top: 32px;
+    padding: 16px 32px;
+    background: var(--accent);
+    color: #0A0A14;
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    border: none; border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s var(--ease), transform 0.1s;
+  }
+  .btn-calcular:hover  { background: var(--m-gold-400); }
+  .btn-calcular:active { transform: scale(0.99); }
+
+  /* ── PROGRESS DOTS ── */
+  .progress-row {
+    display: flex; gap: 4px;
+    flex-wrap: wrap; margin-top: 12px;
+  }
+  .progress-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .progress-dot.ok   { background: var(--green); border-color: var(--green); }
+  .progress-dot.warn { background: var(--yellow); border-color: var(--yellow); }
+  .progress-dot.fail { background: var(--red); border-color: var(--red); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 40px 0 24px;
+    border-top: 1px solid var(--border);
+    margin-top: 64px;
+  }
+  .footer__brand {
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 900;
+    letter-spacing: 6px; color: var(--text-faint);
+    margin-bottom: 6px;
+  }
+  .footer__sub {
+    font-family: var(--font-mono);
+    font-size: 10px; color: var(--m-slate-500);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 600px) {
+    .item-card__main { grid-template-columns: 36px 1fr; }
+    .item-card__controls { flex-direction: row; flex-wrap: wrap; padding: 0 12px 12px; grid-column: 1/-1; }
+    .score-bar { flex-wrap: wrap; }
+    .resultado { padding: 28px 20px; }
+  }
+
+  .btn-pdf {
+    display: block; margin: 24px auto 0; padding: 13px 32px;
+    background: transparent; border: 1px solid rgba(201,168,76,0.35);
+    color: #F0D080; font-family: var(--font-mono); font-size: 11px;
+    font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    border-radius: 8px; cursor: pointer; transition: all .2s;
+  }
+  .btn-pdf:hover { background: rgba(201,168,76,0.08); }
+
+  @media print {
+    .score-bar, .btn-calcular, .btn-state, .btn-pdf { display: none !important; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SCORE BAR STICKY -->
+<div class="score-bar" id="scoreBar">
+  <span class="score-bar__label">Itens concluídos</span>
+  <div class="score-bar__track">
+    <div class="score-bar__fill" id="scoreFill"></div>
+  </div>
+  <span class="score-bar__count" id="scoreCount">0 / 20</span>
+</div>
+
+<div class="page-wrap">
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero__eyebrow">Checkpoint 1 · Tema Identidade · Maestro Palco</span>
+    <h1 class="hero__title">AUDITORIA DE<br>PRESENÇA VISUAL</h1>
+    <div class="hero__separator"></div>
+    <p class="hero__sub">20 itens · Avaliação individual · Resultado imediato</p>
+    <p class="hero__desc">Avalie se a imagem que você projeta está alinhada com a identidade que acabou de definir. Para cada item vermelho, você sabe exatamente o que precisa mudar.</p>
+    <div class="progress-row" id="progressDots"></div>
+  </div>
+
+  <!-- CATEGORIAS E ITENS -->
+  <div id="auditoria"></div>
+
+  <!-- BOTÃO -->
+  <button class="btn-calcular" onclick="calcularResultado()">Ver meu resultado</button>
+
+  <!-- RESULTADO -->
+  <div class="resultado" id="resultado">
+    <span class="resultado__eyebrow">Resultado da Auditoria</span>
+    <div class="resultado__score-display" id="resScore">—</div>
+    <div class="resultado__score-label" id="resScoreLabel">itens OK de 20</div>
+    <div class="resultado__title" id="resTitle"></div>
+    <div class="resultado__desc" id="resDesc"></div>
+    <div class="resultado__divider"></div>
+    <div id="resFailBlock"></div>
+    <div class="resultado__cta" id="resCta"></div>
+    <button class="btn-pdf" onclick="window.print()">↓ Salvar como PDF</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer__brand">MAESTRO PALCO</div>
+    <div class="footer__sub">Auditoria de Presença Visual · Checkpoint 1 · T1 Identidade</div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const ITEMS = [
+  {
+    cat: 1,
+    catTitle: "Foto de Perfil",
+    catMeta: "3 itens — a primeira impressão visual",
+    items: [
+      {
+        id: 1,
+        q: "A foto de perfil mostra claramente o seu rosto — não um instrumento, paisagem ou logo.",
+        fix: "Foto de perfil com rosto visível gera 3x mais reconhecimento do que objeto ou símbolo. Tire uma foto simples, iluminação natural, fundo neutro. Não precisa ser estúdio."
+      },
+      {
+        id: 2,
+        q: "A qualidade da foto é profissional: foco nítido, boa iluminação, sem granulação.",
+        fix: "Uma foto escura ou desfocada comunica descuido antes de qualquer palavra. Use luz natural de frente (janela), câmera traseira do celular. Resultado imediato sem custo."
+      },
+      {
+        id: 3,
+        q: "A foto transmite o mesmo profissional que você descreveu na sua Frase de Posicionamento (P1).",
+        fix: "Releia sua frase de posicionamento. A foto que você usa comunica esse mesmo profissional? Se não, a imagem está contradizendo o texto — e o cérebro do cliente escolhe a imagem."
+      }
+    ]
+  },
+  {
+    cat: 2,
+    catTitle: "Bio e Apresentação",
+    catMeta: "4 itens — o que você diz sobre si mesmo",
+    items: [
+      {
+        id: 4,
+        q: "A bio vai além de 'músico' ou 'professor' — ela diz o que você faz de específico.",
+        fix: "Bio genérica = invisível. Use a fórmula: o que você faz + para quem + resultado ou contexto. Ex: 'Cajón e percussão para eventos corporativos e bandas de MP3' é infinitamente mais eficaz do que 'músico percussionista'."
+      },
+      {
+        id: 5,
+        q: "A bio deixa claro para quem você trabalha ou quem se beneficia do seu trabalho.",
+        fix: "Quem lê sua bio precisa se reconhecer em 3 segundos. Adicione uma linha que descreve quem te busca: 'para bandas em formação', 'para músicos que querem viver de música', 'para eventos de casamento e corporativo'."
+      },
+      {
+        id: 6,
+        q: "A bio tem um CTA claro: link para contato, portfólio, WhatsApp ou próximo passo.",
+        fix: "Bio sem CTA é oportunidade perdida. Adicione um link (Linktree, WhatsApp, site) e uma instrução direta: 'Agenda aqui ↓', 'Fala comigo ↓', 'Veja meu trabalho ↓'. Simples e direto."
+      },
+      {
+        id: 7,
+        q: "A bio usa palavras que parecem suas — não linguagem de template ou de manual de marketing.",
+        fix: "Leia sua bio em voz alta. Soa como você falaria numa conversa? Se parecer que foi copiado de outro perfil, reescreva. Use as palavras do seu vocabulário natural — as que você anotou na Ficha de Identidade."
+      }
+    ]
+  },
+  {
+    cat: 3,
+    catTitle: "Paleta Visual",
+    catMeta: "3 itens — as cores que definem seu perfil",
+    items: [
+      {
+        id: 8,
+        q: "Existe uma paleta de 2 a 3 cores que se repete consistentemente nos seus posts.",
+        fix: "Escolha 2 cores primárias e 1 de apoio. Ferramentas gratuitas: Coolors.co para gerar paleta. Não precisa ser sofisticado — precisa ser consistente. Fundo preto + texto branco + destaque em uma cor já é uma paleta."
+      },
+      {
+        id: 9,
+        q: "As cores do seu perfil comunicam o mesmo tom que sua identidade profissional.",
+        fix: "Cores comunicam antes das palavras. Cores escuras + dourado = sofisticação. Azul + branco = confiança. Cores vibrantes = energia. Avalie: as cores que você usa transmitem o profissional que você quer ser percebido como?"
+      },
+      {
+        id: 10,
+        q: "A paleta está sendo aplicada consistentemente há pelo menos 4 semanas de posts.",
+        fix: "Paleta nova que muda toda semana não funciona. Comprometa-se com uma paleta por pelo menos 3 meses. Se quiser mudar, mude tudo de uma vez — não gradualmente."
+      }
+    ]
+  },
+  {
+    cat: 4,
+    catTitle: "Logo e Marca",
+    catMeta: "2 itens — seu símbolo visual",
+    items: [
+      {
+        id: 11,
+        q: "Você tem um logo, marca ou elemento visual reconhecível associado ao seu nome.",
+        fix: "Não precisa contratar designer agora. Uma tipografia especial do seu nome já é uma marca. Canva tem centenas de templates gratuitos. O objetivo é ter algo que, quando aparece, as pessoas reconhecem que é você."
+      },
+      {
+        id: 12,
+        q: "O logo ou marca visual aparece de forma consistente — mesmo arquivo, mesma versão, mesmo posicionamento.",
+        fix: "Logo que aparece diferente em cada post (tamanho, versão, cor) é pior do que não ter logo. Defina um arquivo padrão (PNG com fundo transparente) e use sempre o mesmo. Salve em lugar de fácil acesso para não criar versão nova a cada post."
+      }
+    ]
+  },
+  {
+    cat: 5,
+    catTitle: "Feed e Consistência Visual",
+    catMeta: "5 itens — o conjunto que as pessoas veem",
+    items: [
+      {
+        id: 13,
+        q: "Os últimos 9 posts do feed têm visual coerente entre si quando vistos juntos.",
+        fix: "Abra seu Instagram e veja os 9 últimos posts como grade. Existe uma identidade visual ali? Se parecem de perfis diferentes, você está perdendo reconhecimento. Planejamento de feed (no Canva ou Unum) resolve em 1 hora de configuração."
+      },
+      {
+        id: 14,
+        q: "Existe uma tipografia (fonte) que se repete nos posts de texto e nos cards.",
+        fix: "Uma fonte para títulos + uma para texto já é um sistema tipográfico. No Canva, crie um template com as fontes fixas e replique. Isso elimina a decisão toda semana e mantém consistência automática."
+      },
+      {
+        id: 15,
+        q: "Fotos e imagens do feed têm o mesmo estilo visual: filtro, brilho, saturação e enquadramento similares.",
+        fix: "Use o mesmo preset ou filtro no Lightroom Mobile (gratuito). Ou ajuste manualmente os mesmos valores: brilho +10, contraste +15, saturação -5. Uniformidade visual comunica profissionalismo antes de qualquer legenda."
+      },
+      {
+        id: 16,
+        q: "Alguém que não te conhece consegue identificar que todos os posts são do mesmo perfil, só pela estética.",
+        fix: "Teste: mostre seu feed para alguém que não te segue. Pergunte: 'Parece um perfil com identidade ou parece misturado?' A resposta honesta diz mais do que qualquer análise."
+      },
+      {
+        id: 17,
+        q: "Os posts de texto e cards seguem o mesmo template visual — fundo, fonte, posicionamento.",
+        fix: "No Canva, crie 3 templates base: um para feed, um para reels (capa) e um para stories. Salve como 'template fixo'. Toda semana você só troca o conteúdo — o visual já está pronto."
+      }
+    ]
+  },
+  {
+    cat: 6,
+    catTitle: "WhatsApp Profissional",
+    catMeta: "3 itens — o canal onde a venda acontece",
+    items: [
+      {
+        id: 18,
+        q: "Sua foto de perfil no WhatsApp é a mesma (ou muito similar) à do Instagram.",
+        fix: "Cliente que te encontra no Instagram e vai para o WhatsApp precisa ter certeza que está falando com a mesma pessoa. Foto diferente gera dúvida. Use a mesma foto ou uma foto do mesmo estilo e contexto."
+      },
+      {
+        id: 19,
+        q: "Seu nome salvo no WhatsApp te identifica como profissional — não apenas o primeiro nome.",
+        fix: "Troque de 'Edilson' para 'Edilson Morais · Percussão' ou 'Edilson · Maestro Palco'. Quando o cliente procurar seu contato na lista, ele vê quem você é profissionalmente — não só um nome genérico."
+      },
+      {
+        id: 20,
+        q: "Seu recado ou status no WhatsApp comunica o que você faz ou como entrar em contato.",
+        fix: "Status e recado no WhatsApp são espaços de posicionamento gratuitos. Use: 'Músico percussionista · Para contratações: [link]' ou 'Aulas de cajón e percussão · Agenda aberta'. Simples. Profissional. Direto."
+      }
+    ]
+  }
+];
+
+// ── RENDER ──
+function render() {
+  const container = document.getElementById('auditoria');
+  const dotsContainer = document.getElementById('progressDots');
+  let html = '';
+  let dotHtml = '';
+  ITEMS.forEach(cat => {
+    html += `
+    <div class="cat-section">
+      <div class="cat-header">
+        <div class="cat-header__badge">C${cat.cat}</div>
+        <div class="cat-header__body">
+          <div class="cat-header__title">${cat.catTitle}</div>
+          <div class="cat-header__meta">${cat.catMeta}</div>
+        </div>
+      </div>
+      <div class="item-list">`;
+    cat.items.forEach(item => {
+      dotHtml += `<div class="progress-dot" id="dot-${item.id}"></div>`;
+      html += `
+        <div class="item-card" id="card-${item.id}">
+          <div class="item-card__main">
+            <div class="item-card__num">${String(item.id).padStart(2,'0')}</div>
+            <div class="item-card__body">
+              <div class="item-card__question">${item.q}</div>
+            </div>
+            <div class="item-card__controls">
+              <button class="btn-state" id="btn-ok-${item.id}"   onclick="setState(${item.id},'ok')"   title="Sim — está correto">✓ Sim</button>
+              <button class="btn-state" id="btn-warn-${item.id}" onclick="setState(${item.id},'warn')" title="Parcialmente">◑ Parcial</button>
+              <button class="btn-state" id="btn-fail-${item.id}" onclick="setState(${item.id},'fail')" title="Não — precisa mudar">✗ Não</button>
+            </div>
+          </div>
+          <div class="item-card__fix">
+            <div class="item-card__fix-label" id="fix-label-${item.id}"></div>
+            <div class="item-card__fix-text">${item.fix}</div>
+          </div>
+        </div>`;
+    });
+    html += `</div></div>`;
+  });
+  container.innerHTML = html;
+  dotsContainer.innerHTML = dotHtml;
+}
+
+// ── STATE ──
+const states = {};
+
+function setState(id, state) {
+  states[id] = state;
+  const card = document.getElementById(`card-${id}`);
+  const dot  = document.getElementById(`dot-${id}`);
+  const fixLabel = document.getElementById(`fix-label-${id}`);
+
+  card.classList.remove('state-ok','state-warn','state-fail');
+  ['ok','warn','fail'].forEach(s => {
+    const btn = document.getElementById(`btn-${s}-${id}`);
+    btn.classList.remove(`active-ok`,`active-warn`,`active-fail`);
+  });
+  dot.classList.remove('ok','warn','fail');
+
+  if (state) {
+    card.classList.add(`state-${state}`);
+    document.getElementById(`btn-${state}-${id}`).classList.add(`active-${state}`);
+    dot.classList.add(state);
+    if (state === 'warn') fixLabel.textContent = '⚠ atenção — precisa de ajuste';
+    if (state === 'fail') fixLabel.textContent = '✗ necessário — o que mudar';
+  }
+  updateScore();
+  salvarLocal();
+}
+
+function updateScore() {
+  const total = 20;
+  const answered = Object.keys(states).length;
+  const ok = Object.values(states).filter(s => s === 'ok').length;
+
+  const pct = (answered / total) * 100;
+  document.getElementById('scoreFill').style.width = pct + '%';
+
+  const greenPct = ok / total;
+  const color = greenPct >= 0.8 ? '#4ADE80' : greenPct >= 0.6 ? '#C9A84C' : '#F87171';
+  document.getElementById('scoreFill').style.background = color;
+  document.getElementById('scoreCount').textContent = `${answered} / ${total}`;
+  document.getElementById('scoreCount').style.color = color;
+}
+
+// ── RESULTADO ──
+function calcularResultado() {
+  const total = 20;
+  const answered = Object.keys(states).length;
+  if (answered < total) {
+    const missing = total - answered;
+    alert(`Você ainda tem ${missing} item${missing>1?'s':''} sem avaliar. Avalie todos os 20 itens para ver o resultado completo.`);
+    return;
+  }
+
+  const ok   = Object.values(states).filter(s => s === 'ok').length;
+  const warn = Object.values(states).filter(s => s === 'warn').length;
+  const fail = Object.values(states).filter(s => s === 'fail').length;
+
+  document.getElementById('resScore').textContent = ok;
+  document.getElementById('resScoreLabel').textContent = `itens OK de ${total}`;
+
+  let title, desc, ctaText;
+  if (ok >= 18) {
+    title = "Presença visual alinhada — pronto para crescer.";
+    desc  = `Você construiu uma identidade visual consistente. Com ${ok} de 20 itens corretos, a imagem que você projeta está alinhada com quem você é profissionalmente. O próximo passo não é mais ajuste visual — é ampliar a presença e garantir que o conteúdo sustente essa imagem semana a semana.`;
+    ctaText = `Sua presença visual está sólida. Agora o próximo passo é o <strong>T2 — Financeiro</strong>: mapear de onde vem seu dinheiro e quanto você realmente deveria cobrar.`;
+  } else if (ok >= 14) {
+    title = "Boa base — alguns ajustes pontuais vão fazer diferença imediata.";
+    desc  = `Com ${ok} de 20 itens, você tem mais acerto do que erro. Os itens marcados em amarelo e vermelho são os próximos alvos — em ordem de prioridade, comece pelos que estão em vermelho. Cada ajuste feito aqui fortalece a mensagem que sua identidade profissional já definiu no T1.`;
+    ctaText = `Resolva os itens em vermelho nos próximos 7 dias. São ajustes que custam menos de 2 horas no total. Depois, prossiga para o <strong>T2 — Financeiro</strong>.`;
+  } else if (ok >= 10) {
+    title = "Presença inconsistente — a identidade está clara, mas a imagem ainda não acompanha.";
+    desc  = `Com ${ok} de 20 itens, existe uma distância entre quem você é profissionalmente e o que o mundo vê quando chega ao seu perfil. Isso não é crítica ao seu trabalho — é uma oportunidade. A identidade que você definiu no T1 já está dentro de você. Agora é hora de externalizar isso visualmente.`;
+    ctaText = `Priorize os itens vermelhos desta auditoria. Se quiser apoio para construir uma identidade visual completa — logo, paleta, bio, consistência — existe uma ferramenta disponível com <strong>desconto exclusivo para alunos ativos</strong>.`;
+  } else {
+    title = "Reconstrução visual necessária — sua identidade profissional merece mais do que isso.";
+    desc  = `Com ${ok} de 20 itens, a imagem que você projeta hoje não representa o profissional que você acabou de definir no T1. Isso acontece com músicos que focaram anos no desenvolvimento técnico e não deram atenção igual ao que o mundo enxerga. Não é problema de talento — é problema de visibilidade.`;
+    ctaText = `Comece pelos itens mais simples e rápidos: foto de perfil, bio, nome no WhatsApp. São mudanças de 30 minutos cada. Para uma reconstrução completa da identidade visual, considere a <strong>ferramenta de identidade disponível com desconto para alunos ativos</strong>.`;
+  }
+
+  document.getElementById('resTitle').textContent = title;
+  document.getElementById('resDesc').textContent  = desc;
+
+  // itens que precisam de ação
+  let failBlock = '';
+  const failItems = [];
+  ITEMS.forEach(cat => cat.items.forEach(item => {
+    if (states[item.id] === 'fail' || states[item.id] === 'warn') {
+      failItems.push({ id: item.id, q: item.q, fix: item.fix, state: states[item.id] });
+    }
+  }));
+
+  if (failItems.length > 0) {
+    failBlock += `<span class="resultado__fail-title">Itens que precisam de ação (${failItems.length})</span>`;
+    failBlock += `<ul class="resultado__fail-list">`;
+    failItems.forEach(fi => {
+      const icon = fi.state === 'fail' ? '✗' : '◑';
+      const color = fi.state === 'fail' ? 'var(--red)' : 'var(--yellow)';
+      failBlock += `<li class="resultado__fail-item">
+        <span class="resultado__fail-dot" style="color:${color}">${icon}</span>
+        <div><strong style="color:var(--text); font-size:13px">${fi.q}</strong><br><span style="font-size:12px; color:var(--text-muted)">${fi.fix}</span></div>
+      </li>`;
+    });
+    failBlock += `</ul>`;
+  } else {
+    failBlock += `<span class="resultado__fail-title" style="color:var(--green)">Nenhum item em vermelho ou amarelo — tudo revisado.</span>`;
+  }
+
+  document.getElementById('resFailBlock').innerHTML = failBlock;
+  document.getElementById('resCta').innerHTML = ctaText;
+
+  const res = document.getElementById('resultado');
+  res.classList.add('visible');
+  res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── LOCALSTORAGE ──
+function salvarLocal() {
+  localStorage.setItem('palco_auditoria_v1', JSON.stringify(states));
+}
+function carregarLocal() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('palco_auditoria_v1') || '{}');
+    Object.entries(saved).forEach(([id, state]) => setState(parseInt(id), state));
+  } catch(e) {}
+}
+
+// ── INIT ──
+render();
+carregarLocal();
+updateScore();
+</script>
+</body>
+</html>

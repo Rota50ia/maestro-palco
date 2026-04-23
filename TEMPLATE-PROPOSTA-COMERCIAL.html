@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template de Proposta Comercial — Maestro Palco</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --m-midnight-950:#141422; --m-midnight-900:#1C1C2E;
+    --m-midnight-800:#23233A; --m-midnight-700:#2D2D4A;
+    --m-gold-500:#C9A84C; --m-gold-400:#DFBE62; --m-gold-300:#F0D080;
+    --m-slate-200:#E2E8F0; --m-slate-400:#94A3B8; --m-slate-500:#64748B;
+    --bg:var(--m-midnight-900); --bg-card:var(--m-midnight-800);
+    --bg-elevated:var(--m-midnight-700); --bg-deep:var(--m-midnight-950);
+    --text:var(--m-slate-200); --text-muted:var(--m-slate-400); --text-faint:var(--m-slate-500);
+    --accent:var(--m-gold-500); --accent-bg:rgba(201,168,76,0.08);
+    --border:rgba(148,163,184,0.12); --border-strong:rgba(148,163,184,0.25);
+    --font-display:'Montserrat','Arial Black',sans-serif;
+    --font-sans:'Montserrat',-apple-system,sans-serif;
+    --font-mono:'JetBrains Mono','Fira Code',monospace;
+    --ease:cubic-bezier(0.4,0,0.2,1);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .container{max-width:820px;margin:0 auto;padding:0 24px;}
+  .page-wrap{padding:64px 0 96px;}
+
+  /* HERO */
+  .hero{text-align:center;padding:64px 0 48px;border-bottom:1px solid var(--border);position:relative;}
+  .hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:480px;height:480px;background:radial-gradient(circle,rgba(201,168,76,0.05) 0%,transparent 70%);pointer-events:none;}
+  .hero__eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;}
+  .hero__title{font-family:var(--font-display);font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:2px;line-height:1.05;margin-bottom:12px;}
+  .hero__separator{width:48px;height:1px;background:var(--accent);opacity:.5;margin:0 auto 16px;}
+  .hero__sub{font-size:14px;color:var(--text-muted);letter-spacing:1px;}
+  .hero__desc{font-size:13px;color:var(--text-faint);max-width:480px;margin:4px auto 0;line-height:1.8;}
+
+  /* PERFIL SELECTOR */
+  .perfil-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px;}
+  .perfil-btn{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-faint);cursor:pointer;transition:all .2s var(--ease);}
+  .perfil-btn:hover{border-color:var(--border-strong);color:var(--text-muted);}
+  .perfil-btn.active{background:var(--accent-bg);border-color:rgba(201,168,76,.3);color:var(--accent);}
+
+  /* FORM */
+  .section{margin-top:36px;}
+  .section-header{margin-bottom:16px;}
+  .section-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
+  .section-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text);}
+
+  .form-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:8px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .form-row.single{grid-template-columns:1fr;}
+  .form-row.triple{grid-template-columns:1fr 1fr 1fr;}
+  .form-row:last-child{margin-bottom:0;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field__label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);}
+  .field__input{background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-family:var(--font-sans);font-size:14px;color:var(--text);outline:none;transition:border-color .2s;}
+  .field__input:focus{border-color:var(--accent);}
+  .field__input::placeholder{color:var(--text-faint);}
+  textarea.field__input{resize:vertical;min-height:80px;line-height:1.6;}
+  select.field__input{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+  select.field__input option{background:var(--m-midnight-800);}
+
+  /* CONDICIONAL */
+  .cond-block{display:none;}
+  .cond-block.visible{display:block;}
+
+  /* BTN */
+  .btn-gerar{display:block;width:100%;margin-top:28px;padding:16px 32px;background:var(--accent);color:#0A0A14;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;transition:background .2s;}
+  .btn-gerar:hover{background:var(--m-gold-400);}
+
+  /* PROPOSTA PREVIEW */
+  .proposta-wrap{margin-top:40px;display:none;}
+  .proposta-wrap.visible{display:block;}
+
+  .proposta{background:var(--bg-card);border:1px solid var(--border-strong);border-radius:16px;overflow:hidden;}
+  .prop-header{background:var(--bg-deep);padding:36px 40px;border-bottom:1px solid var(--border);}
+  .prop-header__marca{font-family:var(--font-display);font-size:11px;font-weight:900;letter-spacing:6px;color:var(--accent);text-transform:uppercase;margin-bottom:20px;}
+  .prop-header__nome{font-family:var(--font-display);font-size:28px;font-weight:900;color:var(--text);margin-bottom:4px;}
+  .prop-header__posicao{font-size:14px;color:var(--text-muted);margin-bottom:16px;}
+  .prop-header__contatos{display:flex;gap:20px;flex-wrap:wrap;}
+  .prop-header__contato{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);}
+
+  .prop-body{padding:36px 40px;}
+  .prop-section{margin-bottom:32px;}
+  .prop-section:last-child{margin-bottom:0;}
+  .prop-section__label{font-family:var(--font-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+  .prop-section__text{font-size:14px;color:var(--text-muted);line-height:1.75;}
+
+  .prop-table{width:100%;border-collapse:collapse;}
+  .prop-table td{padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);}
+  .prop-table tr:last-child td{border-bottom:none;}
+  .prop-table .td-key{color:var(--text-faint);font-size:13px;width:40%;}
+  .prop-table .td-val{font-weight:600;color:var(--text);}
+
+  .prop-investimento{background:var(--bg-deep);border:1px solid var(--border-strong);border-radius:10px;padding:24px 28px;margin:16px 0;}
+  .prop-investimento__label{font-family:var(--font-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;display:block;}
+  .prop-investimento__valor{font-family:var(--font-display);font-size:36px;font-weight:900;color:var(--accent);}
+  .prop-investimento__sub{font-size:12px;color:var(--text-faint);margin-top:4px;}
+
+  .prop-passos{list-style:none;counter-reset:passos;}
+  .prop-passos li{counter-increment:passos;display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);}
+  .prop-passos li:last-child{border-bottom:none;}
+  .prop-passos li::before{content:counter(passos);min-width:24px;height:24px;background:var(--accent-bg);border:1px solid rgba(201,168,76,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:var(--accent);flex-shrink:0;margin-top:1px;}
+
+  .prop-footer{padding:24px 40px;border-top:1px solid var(--border);background:var(--bg-deep);}
+  .prop-footer__assinatura{font-size:14px;color:var(--text-muted);}
+  .prop-footer__nome{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text);margin-top:4px;}
+  .prop-footer__validade{font-family:var(--font-mono);font-size:10px;color:var(--text-faint);margin-top:8px;letter-spacing:1px;}
+
+  /* BTN IMPRIMIR */
+  .btn-row{display:flex;gap:12px;margin-top:20px;}
+  .btn-imprimir{flex:1;padding:13px 24px;background:transparent;border:1px solid var(--border);color:var(--text-muted);font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all .2s;}
+  .btn-imprimir:hover{border-color:var(--border-strong);color:var(--text);}
+  .btn-nova{flex:1;padding:13px 24px;background:var(--accent);color:#0A0A14;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;transition:background .2s;}
+  .btn-nova:hover{background:var(--m-gold-400);}
+
+  /* FOOTER */
+  .footer{text-align:center;padding:40px 0 24px;border-top:1px solid var(--border);margin-top:64px;}
+  .footer__brand{font-family:var(--font-display);font-size:14px;font-weight:900;letter-spacing:6px;color:var(--text-faint);margin-bottom:6px;}
+  .footer__sub{font-family:var(--font-mono);font-size:10px;color:var(--m-slate-500);letter-spacing:1px;}
+
+  @media print{
+    .hero,.perfil-bar,.section,.btn-gerar,.btn-row,.footer{display:none!important;}
+    .proposta-wrap{display:block!important;}
+    .proposta-wrap.visible{margin:0;}
+    body{background:white;color:black;}
+    .prop-header{background:#f8f8f8;}
+    .prop-body,.prop-header,.prop-footer{padding:24px 28px;}
+  }
+  @media(max-width:600px){
+    .form-row,.form-row.triple{grid-template-columns:1fr;}
+    .prop-header,.prop-body,.prop-footer{padding:24px 20px;}
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<div class="container">
+
+  <div class="hero">
+    <span class="hero__eyebrow">Checkpoint 4 · Plano 90 Dias · Maestro Palco</span>
+    <h1 class="hero__title">TEMPLATE DE<br>PROPOSTA COMERCIAL</h1>
+    <div class="hero__separator"></div>
+    <p class="hero__sub">Adaptável por perfil — pronto para usar na próxima oportunidade</p>
+    <p class="hero__desc">Preencha os campos. A proposta é gerada automaticamente no formato certo para enviar — sem precisar inventar do zero toda vez.</p>
+  </div>
+
+  <!-- PERFIL -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-eyebrow">Passo 1</span>
+      <div class="section-title">Qual tipo de proposta você está enviando?</div>
+    </div>
+    <div class="perfil-bar" id="perfilBar">
+      <button class="perfil-btn active" onclick="setPerfil('show')"      data-perfil="show">🎤 Show / Cachê</button>
+      <button class="perfil-btn"        onclick="setPerfil('aulaAv')"    data-perfil="aulaAv">🥁 Aula Avulsa</button>
+      <button class="perfil-btn"        onclick="setPerfil('aulaReg')"   data-perfil="aulaReg">📅 Aula Regular</button>
+      <button class="perfil-btn"        onclick="setPerfil('evento')"    data-perfil="evento">🎪 Evento</button>
+      <button class="perfil-btn"        onclick="setPerfil('parceria')"  data-perfil="parceria">🤝 Parceria</button>
+    </div>
+  </div>
+
+  <!-- SEUS DADOS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-eyebrow">Passo 2</span>
+      <div class="section-title">Seus dados</div>
+    </div>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="field">
+          <label class="field__label">Seu nome completo</label>
+          <input class="field__input" id="seuNome" placeholder="ex: Edilson Morais" oninput="atualizar()">
+        </div>
+        <div class="field">
+          <label class="field__label">Sua especialidade / posicionamento</label>
+          <input class="field__input" id="seuPosicionamento" placeholder="ex: Percussionista e professor de cajón" oninput="atualizar()">
+        </div>
+      </div>
+      <div class="form-row triple">
+        <div class="field">
+          <label class="field__label">WhatsApp</label>
+          <input class="field__input" id="seuWhatsapp" placeholder="(11) 99999-9999" oninput="atualizar()">
+        </div>
+        <div class="field">
+          <label class="field__label">Instagram</label>
+          <input class="field__input" id="seuInstagram" placeholder="@seuinstagram" oninput="atualizar()">
+        </div>
+        <div class="field">
+          <label class="field__label">E-mail (opcional)</label>
+          <input class="field__input" id="seuEmail" placeholder="seu@email.com" oninput="atualizar()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESTINATÁRIO -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-eyebrow">Passo 3</span>
+      <div class="section-title">Para quem você está enviando</div>
+    </div>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="field">
+          <label class="field__label">Nome do contratante / empresa</label>
+          <input class="field__input" id="destNome" placeholder="ex: Bar do João / Escola Ritmo" oninput="atualizar()">
+        </div>
+        <div class="field">
+          <label class="field__label">Nome do responsável (se houver)</label>
+          <input class="field__input" id="destResponsavel" placeholder="ex: João Silva" oninput="atualizar()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETALHES DO SERVIÇO (muda por perfil) -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-eyebrow">Passo 4</span>
+      <div class="section-title">Detalhes do serviço</div>
+    </div>
+    <div class="form-card">
+
+      <!-- SHOW -->
+      <div class="cond-block visible" id="bloco-show">
+        <div class="form-row triple">
+          <div class="field"><label class="field__label">Data do show</label><input class="field__input" id="show-data" type="date" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Horário</label><input class="field__input" id="show-hora" placeholder="ex: 21h00" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Duração</label><input class="field__input" id="show-duracao" placeholder="ex: 2 horas" oninput="atualizar()"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label class="field__label">Local / endereço</label><input class="field__input" id="show-local" placeholder="ex: Bar do João — Rua X, 123" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Estilo / repertório</label><input class="field__input" id="show-repertorio" placeholder="ex: MPB, Samba, Jazz" oninput="atualizar()"></div>
+        </div>
+        <div class="form-row single">
+          <div class="field"><label class="field__label">O que está incluso</label><textarea class="field__input" id="show-incluso" placeholder="ex: Som e iluminação por conta do contratante. Percussão e cajón por conta do artista. Intervalos: 2 de 15 min." oninput="atualizar()"></textarea></div>
+        </div>
+      </div>
+
+      <!-- AULA AVULSA -->
+      <div class="cond-block" id="bloco-aulaAv">
+        <div class="form-row triple">
+          <div class="field"><label class="field__label">Data da aula</label><input class="field__input" id="aulaAv-data" type="date" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Horário</label><input class="field__input" id="aulaAv-hora" placeholder="ex: 14h00" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Duração</label><input class="field__input" id="aulaAv-duracao" placeholder="ex: 1h30" oninput="atualizar()"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label class="field__label">Modalidade</label><select class="field__input" id="aulaAv-modalidade" onchange="atualizar()"><option value="Presencial">Presencial</option><option value="Online (videochamada)">Online</option></select></div>
+          <div class="field"><label class="field__label">Nível do aluno</label><select class="field__input" id="aulaAv-nivel" onchange="atualizar()"><option value="Iniciante">Iniciante</option><option value="Intermediário">Intermediário</option><option value="Avançado">Avançado</option></select></div>
+        </div>
+        <div class="form-row single">
+          <div class="field"><label class="field__label">Foco da aula</label><textarea class="field__input" id="aulaAv-foco" placeholder="ex: Introdução ao cajón: postura, sons básicos (grave e agudo), primeiro groove." oninput="atualizar()"></textarea></div>
+        </div>
+      </div>
+
+      <!-- AULA REGULAR -->
+      <div class="cond-block" id="bloco-aulaReg">
+        <div class="form-row">
+          <div class="field"><label class="field__label">Frequência</label><select class="field__input" id="aulaReg-freq" onchange="atualizar()"><option value="1 aula por semana">1x por semana</option><option value="2 aulas por semana">2x por semana</option><option value="Aulas quinzenais">Quinzenal</option></select></div>
+          <div class="field"><label class="field__label">Duração por aula</label><input class="field__input" id="aulaReg-duracao" placeholder="ex: 1 hora" oninput="atualizar()"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label class="field__label">Dia(s) da semana</label><input class="field__input" id="aulaReg-dias" placeholder="ex: Terças e quintas, 19h" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Modalidade</label><select class="field__input" id="aulaReg-modalidade" onchange="atualizar()"><option value="Presencial">Presencial</option><option value="Online (videochamada)">Online</option><option value="Híbrido (presencial + online)">Híbrido</option></select></div>
+        </div>
+        <div class="form-row single">
+          <div class="field"><label class="field__label">Objetivos do aluno / o que vai ser trabalhado</label><textarea class="field__input" id="aulaReg-objetivos" placeholder="ex: Desenvolver técnica de cajón flamenco. Repertório: Bulerias, Tangos, Soleares. Meta 6 meses: tocar em formação com guitarrista." oninput="atualizar()"></textarea></div>
+        </div>
+      </div>
+
+      <!-- EVENTO -->
+      <div class="cond-block" id="bloco-evento">
+        <div class="form-row triple">
+          <div class="field"><label class="field__label">Data do evento</label><input class="field__input" id="evento-data" type="date" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Horário</label><input class="field__input" id="evento-hora" placeholder="ex: 19h30" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Duração da participação</label><input class="field__input" id="evento-duracao" placeholder="ex: 45 min" oninput="atualizar()"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label class="field__label">Tipo de evento</label><input class="field__input" id="evento-tipo" placeholder="ex: Evento corporativo, formatura, casamento" oninput="atualizar()"></div>
+          <div class="field"><label class="field__label">Local / endereço</label><input class="field__input" id="evento-local" placeholder="ex: Hotel XYZ — Salão Principal" oninput="atualizar()"></div>
+        </div>
+        <div class="form-row single">
+          <div class="field"><label class="field__label">Descrição da participação</label><textarea class="field__input" id="evento-descricao" placeholder="ex: Performance de percussão ao vivo durante coquetel de abertura. Repertório instrumental, 3 músicos." oninput="atualizar()"></textarea></div>
+        </div>
+      </div>
+
+      <!-- PARCERIA -->
+      <div class="cond-block" id="bloco-parceria">
+        <div class="form-row single">
+          <div class="field"><label class="field__label">O que você está propondo</label><textarea class="field__input" id="parc-proposta" placeholder="ex: Colaboração para criação de conteúdo musical no Instagram: 2 vídeos por mês com repertório conjunto, crédito mútuo e divulgação para as duas bases." oninput="atualizar()"></textarea></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label class="field__label">O que você oferece</label><textarea class="field__input" id="parc-oferece" placeholder="ex: Criação de arranjos, gravação de faixas de cajón, divulgação para base de X seguidores." oninput="atualizar()"></textarea></div>
+          <div class="field"><label class="field__label">O que você espera em troca</label><textarea class="field__input" id="parc-espera" placeholder="ex: Crédito nos conteúdos, divulgação para a base, acesso ao estúdio para gravação." oninput="atualizar()"></textarea></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INVESTIMENTO -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-eyebrow">Passo 5</span>
+      <div class="section-title">Investimento e termos</div>
+    </div>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="field">
+          <label class="field__label">Valor (R$)</label>
+          <input class="field__input" id="valor" type="number" placeholder="ex: 800" oninput="atualizar()">
+        </div>
+        <div class="field">
+          <label class="field__label">Forma de pagamento</label>
+          <select class="field__input" id="pagamento" onchange="atualizar()">
+            <option value="À vista (Pix)">À vista — Pix</option>
+            <option value="À vista (dinheiro ou transferência)">À vista — dinheiro / transferência</option>
+            <option value="50% de entrada + 50% no dia">50% entrada + 50% no dia</option>
+            <option value="Mensalidade (boleto ou Pix recorrente)">Mensalidade — boleto / Pix recorrente</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label class="field__label">Validade desta proposta</label>
+          <select class="field__input" id="validade" onchange="atualizar()">
+            <option value="48 horas">48 horas</option>
+            <option value="7 dias">7 dias</option>
+            <option value="15 dias">15 dias</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label">Política de cancelamento</label>
+          <select class="field__input" id="cancelamento" onchange="atualizar()">
+            <option value="Cancelamento com até 48h de antecedência: reembolso integral. Após esse prazo: sem reembolso.">48h — reembolso total</option>
+            <option value="Cancelamento com até 7 dias de antecedência: reembolso de 50%. Após esse prazo: sem reembolso.">7 dias — reembolso 50%</option>
+            <option value="Cancelamento com até 24h de antecedência: sem cobrança. Após esse prazo: cobrança integral.">24h — sem cobrança</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="field">
+          <label class="field__label">Observações adicionais (opcional)</label>
+          <textarea class="field__input" id="obs" placeholder="ex: Deslocamento incluso para cidades a até 30km. Para distâncias maiores, combinar valor adicional de transporte." oninput="atualizar()"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-gerar" onclick="gerarProposta()">Gerar proposta</button>
+
+  <!-- PROPOSTA PREVIEW -->
+  <div class="proposta-wrap" id="propostaWrap">
+    <div class="proposta" id="propostaDoc">
+      <div class="prop-header">
+        <div class="prop-header__marca">Proposta Comercial</div>
+        <div class="prop-header__nome" id="pNome">—</div>
+        <div class="prop-header__posicao" id="pPosicao">—</div>
+        <div class="prop-header__contatos" id="pContatos"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-section">
+          <span class="prop-section__label">Para</span>
+          <div class="prop-section__text" id="pDest">—</div>
+        </div>
+        <div class="prop-section">
+          <span class="prop-section__label" id="pServicoLabel">Serviço</span>
+          <table class="prop-table" id="pDetalhes"></table>
+        </div>
+        <div class="prop-section">
+          <span class="prop-section__label">Investimento</span>
+          <div class="prop-investimento">
+            <span class="prop-investimento__label">Valor</span>
+            <div class="prop-investimento__valor" id="pValor">—</div>
+            <div class="prop-investimento__sub" id="pPagamento">—</div>
+          </div>
+          <div class="prop-section__text" id="pCancelamento" style="font-size:12px;color:var(--text-faint);margin-top:8px;"></div>
+          <div class="prop-section__text" id="pObs" style="font-size:13px;margin-top:10px;"></div>
+        </div>
+        <div class="prop-section">
+          <span class="prop-section__label">Próximos passos</span>
+          <ol class="prop-passos" id="pPassos"></ol>
+        </div>
+      </div>
+      <div class="prop-footer">
+        <div class="prop-footer__assinatura">Proposta apresentada por</div>
+        <div class="prop-footer__nome" id="pAssinatura">—</div>
+        <div class="prop-footer__validade" id="pValidade">—</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-imprimir" onclick="window.print()">Imprimir / Salvar PDF</button>
+      <button class="btn-nova" onclick="novaProposta()">Nova proposta</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer__brand">MAESTRO PALCO</div>
+    <div class="footer__sub">Template de Proposta Comercial · Checkpoint 4 · T4 Plano 90 Dias</div>
+  </div>
+
+</div>
+</div>
+
+<script>
+let perfil = 'show';
+
+const LABELS = {
+  show:     'Show / Apresentação ao Vivo',
+  aulaAv:   'Aula Avulsa',
+  aulaReg:  'Aulas Regulares',
+  evento:   'Participação em Evento',
+  parceria: 'Proposta de Parceria',
+};
+
+const PASSOS = {
+  show:     ['Confirme o interesse respondendo esta mensagem ou via WhatsApp','Envio do contrato simples de prestação de serviço para assinatura','Pagamento conforme acordado para confirmação da data','Alinhamento final de logística 48h antes do evento'],
+  aulaAv:   ['Confirme o interesse respondendo esta mensagem ou via WhatsApp','Pagamento antecipado para reserva do horário','Receba o link ou endereço da aula por WhatsApp','Nos vemos na data combinada'],
+  aulaReg:  ['Confirme o interesse respondendo esta mensagem ou via WhatsApp','Aula experimental gratuita de 30 min para alinhamento','Assinatura do acordo de aulas e primeiro pagamento','Início das aulas na semana seguinte'],
+  evento:   ['Confirme o interesse respondendo esta mensagem ou via WhatsApp','Alinhamento de briefing: estilo, vestimenta e necessidades técnicas','Pagamento de entrada para confirmar a data','Contato de alinhamento final 72h antes do evento'],
+  parceria: ['Confirme o interesse respondendo esta mensagem ou via WhatsApp','Reunião de 30 min (presencial ou online) para alinhamento de expectativas','Definição dos termos por escrito','Início da colaboração na data combinada'],
+};
+
+function setPerfil(p) {
+  perfil = p;
+  document.querySelectorAll('.perfil-btn').forEach(b => b.classList.toggle('active', b.dataset.perfil === p));
+  document.querySelectorAll('.cond-block').forEach(b => b.classList.remove('visible'));
+  document.getElementById(`bloco-${p}`).classList.add('visible');
+}
+
+function v(id) { return (document.getElementById(id)||{}).value || ''; }
+
+function fmt(n) { return 'R$ ' + parseFloat(n).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function fmtDate(d) { if (!d) return ''; const [y,m,dd] = d.split('-'); return `${dd}/${m}/${y}`; }
+
+function gerarProposta() {
+  if (!v('seuNome') || !v('destNome')) { alert('Preencha pelo menos seu nome e o nome do destinatário.'); return; }
+
+  // header
+  document.getElementById('pNome').textContent = v('seuNome') || '—';
+  document.getElementById('pPosicao').textContent = v('seuPosicionamento') || '—';
+
+  const contatos = [v('seuWhatsapp'), v('seuInstagram'), v('seuEmail')].filter(Boolean);
+  document.getElementById('pContatos').innerHTML = contatos.map(c => `<span class="prop-header__contato">${c}</span>`).join('');
+
+  // dest
+  const resp = v('destResponsavel') ? ` · att. ${v('destResponsavel')}` : '';
+  document.getElementById('pDest').textContent = `${v('destNome')}${resp}`;
+
+  // serviço label
+  document.getElementById('pServicoLabel').textContent = LABELS[perfil];
+
+  // detalhes
+  let rows = '';
+  if (perfil === 'show') {
+    rows = tableRows([
+      ['Data', fmtDate(v('show-data'))],
+      ['Horário', v('show-hora')],
+      ['Duração', v('show-duracao')],
+      ['Local', v('show-local')],
+      ['Repertório', v('show-repertorio')],
+      ['Incluso', v('show-incluso')],
+    ]);
+  } else if (perfil === 'aulaAv') {
+    rows = tableRows([
+      ['Data', fmtDate(v('aulaAv-data'))],
+      ['Horário', v('aulaAv-hora')],
+      ['Duração', v('aulaAv-duracao')],
+      ['Modalidade', v('aulaAv-modalidade')],
+      ['Nível', v('aulaAv-nivel')],
+      ['Foco da aula', v('aulaAv-foco')],
+    ]);
+  } else if (perfil === 'aulaReg') {
+    rows = tableRows([
+      ['Frequência', v('aulaReg-freq')],
+      ['Duração por aula', v('aulaReg-duracao')],
+      ['Dias e horário', v('aulaReg-dias')],
+      ['Modalidade', v('aulaReg-modalidade')],
+      ['Objetivos', v('aulaReg-objetivos')],
+    ]);
+  } else if (perfil === 'evento') {
+    rows = tableRows([
+      ['Data', fmtDate(v('evento-data'))],
+      ['Horário', v('evento-hora')],
+      ['Duração', v('evento-duracao')],
+      ['Tipo de evento', v('evento-tipo')],
+      ['Local', v('evento-local')],
+      ['Descrição', v('evento-descricao')],
+    ]);
+  } else {
+    rows = tableRows([
+      ['Proposta', v('parc-proposta')],
+      ['O que ofereço', v('parc-oferece')],
+      ['O que espero', v('parc-espera')],
+    ]);
+  }
+  document.getElementById('pDetalhes').innerHTML = rows;
+
+  // investimento
+  const valorNum = parseFloat(v('valor'));
+  document.getElementById('pValor').textContent = valorNum ? fmt(valorNum) : 'A combinar';
+  document.getElementById('pPagamento').textContent = v('pagamento');
+  document.getElementById('pCancelamento').textContent = v('cancelamento');
+  document.getElementById('pObs').textContent = v('obs');
+
+  // passos
+  document.getElementById('pPassos').innerHTML = PASSOS[perfil].map(p => `<li>${p}</li>`).join('');
+
+  // footer
+  document.getElementById('pAssinatura').textContent = v('seuNome');
+  const hoje = new Date();
+  const validade = v('validade');
+  document.getElementById('pValidade').textContent = `Proposta emitida em ${hoje.toLocaleDateString('pt-BR')} · Válida por ${validade}`;
+
+  const wrap = document.getElementById('propostaWrap');
+  wrap.classList.add('visible');
+  wrap.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function tableRows(arr) {
+  return arr.filter(([,v]) => v).map(([k,v]) => `<tr><td class="td-key">${k}</td><td class="td-val">${v}</td></tr>`).join('');
+}
+
+function novaProposta() {
+  document.getElementById('propostaWrap').classList.remove('visible');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+const FIELD_IDS = [
+  'seuNome','seuPosicionamento','seuWhatsapp','seuInstagram','seuEmail',
+  'destNome','destResponsavel',
+  'show-data','show-hora','show-duracao','show-local','show-repertorio','show-incluso',
+  'aulaAv-data','aulaAv-hora','aulaAv-duracao','aulaAv-modalidade','aulaAv-nivel','aulaAv-foco',
+  'aulaReg-freq','aulaReg-duracao','aulaReg-dias','aulaReg-modalidade','aulaReg-objetivos',
+  'evento-data','evento-hora','evento-duracao','evento-tipo','evento-local','evento-descricao',
+  'parc-proposta','parc-oferece','parc-espera',
+  'valor','pagamento','validade','cancelamento','obs'
+];
+
+function salvarLocal() {
+  const dados = { perfil };
+  FIELD_IDS.forEach(id => { const el = document.getElementById(id); if (el) dados[id] = el.value; });
+  localStorage.setItem('palco_proposta_v1', JSON.stringify(dados));
+}
+
+function carregarLocal() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('palco_proposta_v1') || '{}');
+    if (saved.perfil) setPerfil(saved.perfil);
+    FIELD_IDS.forEach(id => {
+      if (saved[id] !== undefined && saved[id] !== '') {
+        const el = document.getElementById(id);
+        if (el) el.value = saved[id];
+      }
+    });
+  } catch(e) {}
+}
+
+function atualizar() { salvarLocal(); }
+
+carregarLocal();
+</script>
+</body>
+</html>

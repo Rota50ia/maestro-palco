@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Precificação — Maestro Palco</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --m-midnight-950:#141422; --m-midnight-900:#1C1C2E;
+    --m-midnight-800:#23233A; --m-midnight-700:#2D2D4A;
+    --m-gold-500:#C9A84C; --m-gold-400:#DFBE62; --m-gold-300:#F0D080;
+    --m-slate-200:#E2E8F0; --m-slate-400:#94A3B8; --m-slate-500:#64748B;
+    --bg:var(--m-midnight-900); --bg-card:var(--m-midnight-800);
+    --bg-elevated:var(--m-midnight-700); --bg-deep:var(--m-midnight-950);
+    --text:var(--m-slate-200); --text-muted:var(--m-slate-400); --text-faint:var(--m-slate-500);
+    --accent:var(--m-gold-500); --accent-bg:rgba(201,168,76,0.08);
+    --border:rgba(148,163,184,0.12); --border-strong:rgba(148,163,184,0.25);
+    --green:#4ADE80; --green-bg:rgba(74,222,128,0.08); --green-border:rgba(74,222,128,0.2);
+    --red:#F87171; --red-bg:rgba(248,113,113,0.08); --red-border:rgba(248,113,113,0.2);
+    --yellow:#FBBF24; --yellow-bg:rgba(251,191,36,0.08);
+    --font-display:'Montserrat','Arial Black',sans-serif;
+    --font-sans:'Montserrat',-apple-system,sans-serif;
+    --font-mono:'JetBrains Mono','Fira Code',monospace;
+    --ease:cubic-bezier(0.4,0,0.2,1);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .container{max-width:820px;margin:0 auto;padding:0 24px;}
+  .page-wrap{padding:64px 0 96px;}
+
+  /* HERO */
+  .hero{text-align:center;padding:64px 0 48px;border-bottom:1px solid var(--border);position:relative;}
+  .hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:480px;height:480px;background:radial-gradient(circle,rgba(201,168,76,0.05) 0%,transparent 70%);pointer-events:none;}
+  .hero__eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:20px;}
+  .hero__title{font-family:var(--font-display);font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:2px;line-height:1.05;margin-bottom:12px;}
+  .hero__separator{width:48px;height:1px;background:var(--accent);opacity:.5;margin:0 auto 16px;}
+  .hero__sub{font-size:14px;color:var(--text-muted);letter-spacing:1px;margin-bottom:8px;}
+  .hero__desc{font-size:13px;color:var(--text-faint);max-width:480px;margin:0 auto;line-height:1.8;}
+
+  /* SECTIONS */
+  .section{margin-top:40px;}
+  .section-header{margin-bottom:20px;}
+  .section-header__eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
+  .section-header__title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text);}
+  .section-header__desc{font-size:13px;color:var(--text-muted);margin-top:6px;line-height:1.7;}
+
+  /* FORM CARD */
+  .form-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:12px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+  .form-row.single{grid-template-columns:1fr;}
+  .form-row.triple{grid-template-columns:1fr 1fr 1fr;}
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field__label{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);}
+  .field__input{background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-family:var(--font-sans);font-size:15px;font-weight:600;color:var(--text);outline:none;transition:border-color .2s var(--ease);}
+  .field__input:focus{border-color:var(--accent);}
+  .field__input::placeholder{color:var(--text-faint);font-weight:400;}
+  .field__hint{font-size:11px;color:var(--text-faint);line-height:1.5;}
+  select.field__input{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+  select.field__input option{background:var(--m-midnight-800);}
+
+  /* SERVIÇOS TABLE */
+  .servicos-table{width:100%;border-collapse:collapse;margin-top:8px;}
+  .servicos-table th{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+  .servicos-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-muted);}
+  .servicos-table tr:last-child td{border-bottom:none;}
+  .servicos-table .td-name{font-weight:600;color:var(--text);}
+  .servicos-table input[type=number]{background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--font-mono);font-size:13px;color:var(--text);width:90px;outline:none;text-align:right;}
+  .servicos-table input[type=number]:focus{border-color:var(--accent);}
+  .servicos-table .td-result{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--accent);text-align:right;min-width:100px;}
+
+  /* BTN */
+  .btn-calcular{display:block;width:100%;margin-top:28px;padding:16px 32px;background:var(--accent);color:#0A0A14;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;transition:background .2s;}
+  .btn-calcular:hover{background:var(--m-gold-400);}
+
+  /* RESULTADO */
+  .resultado{margin-top:40px;display:none;}
+  .resultado.visible{display:block;}
+
+  .res-hero{background:var(--bg-deep);border:1px solid var(--border-strong);border-top:2px solid var(--accent);border-radius:16px;padding:36px;margin-bottom:16px;text-align:center;}
+  .res-hero__eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:12px;}
+  .res-hero__value{font-family:var(--font-display);font-size:clamp(40px,7vw,64px);font-weight:900;color:var(--accent);line-height:1;}
+  .res-hero__label{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);letter-spacing:1px;margin-top:4px;}
+
+  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+  .res-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;}
+  .res-card__label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;display:block;}
+  .res-card__value{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--text);}
+  .res-card__sub{font-size:12px;color:var(--text-faint);margin-top:4px;}
+
+  .res-servicos{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;}
+  .res-servicos__header{padding:16px 24px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);}
+  .res-servico-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:14px 24px;border-bottom:1px solid var(--border);}
+  .res-servico-row:last-child{border-bottom:none;}
+  .res-servico-row__name{font-size:14px;font-weight:600;color:var(--text);}
+  .res-servico-row__horas{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);}
+  .res-servico-row__preco{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--accent);}
+
+  .alerta{padding:16px 20px;border-radius:8px;font-size:13px;line-height:1.65;margin-bottom:12px;}
+  .alerta.ok{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);}
+  .alerta.warn{background:var(--yellow-bg);border:1px solid rgba(251,191,36,.2);color:var(--yellow);}
+  .alerta.fail{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red);}
+
+  .res-cta{padding:20px 24px;background:var(--accent-bg);border:1px solid rgba(201,168,76,.2);border-radius:10px;font-size:13px;color:var(--text-muted);line-height:1.7;}
+  .res-cta strong{color:var(--accent);}
+
+  /* FOOTER */
+  .footer{text-align:center;padding:40px 0 24px;border-top:1px solid var(--border);margin-top:64px;}
+  .footer__brand{font-family:var(--font-display);font-size:14px;font-weight:900;letter-spacing:6px;color:var(--text-faint);margin-bottom:6px;}
+  .footer__sub{font-family:var(--font-mono);font-size:10px;color:var(--m-slate-500);letter-spacing:1px;}
+
+  @media(max-width:600px){
+    .form-row,.form-row.triple{grid-template-columns:1fr;}
+    .res-grid{grid-template-columns:1fr;}
+    .res-servico-row{grid-template-columns:1fr auto;}
+    .res-servico-row__horas{display:none;}
+  }
+  .btn-pdf{
+    display:block;margin:24px auto 0;padding:13px 32px;
+    background:transparent;border:1px solid rgba(201,168,76,0.35);
+    color:#F0D080;font-family:var(--font-mono);font-size:11px;
+    font-weight:500;letter-spacing:2px;text-transform:uppercase;
+    border-radius:8px;cursor:pointer;transition:all .2s;
+  }
+  .btn-pdf:hover{background:rgba(201,168,76,0.08);}
+  @media print{.btn-calcular,.btn-pdf{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<div class="container">
+
+  <div class="hero">
+    <span class="hero__eyebrow">Checkpoint 2 · Tema Financeiro · Maestro Palco</span>
+    <h1 class="hero__title">CALCULADORA DE<br>PRECIFICAÇÃO</h1>
+    <div class="hero__separator"></div>
+    <p class="hero__sub">Preço mínimo viável por serviço</p>
+    <p class="hero__desc">Preencha com seus números reais. Em 2 minutos você sabe quanto deveria cobrar — e onde está deixando dinheiro na mesa.</p>
+  </div>
+
+  <!-- BLOCO 1: BASE FINANCEIRA -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-header__eyebrow">Bloco 1</span>
+      <div class="section-header__title">Sua base financeira</div>
+      <div class="section-header__desc">Quanto você precisa para viver e quantas horas você tem para trabalhar. Esses dois números determinam tudo.</div>
+    </div>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="field">
+          <label class="field__label" for="metaMensal">Meta de renda mensal (R$)</label>
+          <input class="field__input" type="number" id="metaMensal" placeholder="ex: 5000" min="0" oninput="calcular()">
+          <span class="field__hint">Quanto você precisa ganhar por mês para ter a vida que quer — não o mínimo para sobreviver.</span>
+        </div>
+        <div class="field">
+          <label class="field__label" for="horasSemana">Horas disponíveis por semana</label>
+          <input class="field__input" type="number" id="horasSemana" placeholder="ex: 30" min="1" max="80" oninput="calcular()">
+          <span class="field__hint">Horas reais de trabalho — inclua ensaio, aula, deslocamento, admin. Seja honesto.</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label class="field__label" for="custosFixos">Custos fixos mensais (R$)</label>
+          <input class="field__input" type="number" id="custosFixos" placeholder="ex: 800" min="0" oninput="calcular()">
+          <span class="field__hint">Aluguel, transporte, equipamentos, plataformas, alimentação fora de casa — tudo que sai todo mês.</span>
+        </div>
+        <div class="field">
+          <label class="field__label" for="margemDesejada">Margem de segurança (%)</label>
+          <input class="field__input" type="number" id="margemDesejada" placeholder="ex: 30" min="0" max="100" value="30" oninput="calcular()">
+          <span class="field__hint">Reserva para meses fracos, imprevistos e investimento. Mínimo recomendado: 20%.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO 2: SERVIÇOS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-header__eyebrow">Bloco 2</span>
+      <div class="section-header__title">Seus serviços e quanto tempo cada um toma</div>
+      <div class="section-header__desc">Inclua o tempo real: deslocamento, preparação, o serviço em si e o tempo administrativo posterior.</div>
+    </div>
+    <div class="form-card">
+      <table class="servicos-table">
+        <thead>
+          <tr>
+            <th>Serviço</th>
+            <th>Horas totais por ocorrência</th>
+            <th>Preço que cobra hoje (R$)</th>
+            <th style="text-align:right">Mínimo calculado</th>
+          </tr>
+        </thead>
+        <tbody id="servicosBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <button class="btn-calcular" onclick="mostrarResultado()">Calcular meu preço mínimo</button>
+
+  <!-- RESULTADO -->
+  <div class="resultado" id="resultado">
+
+    <div class="res-hero">
+      <span class="res-hero__eyebrow">Seu custo mínimo por hora</span>
+      <div class="res-hero__value" id="resValorHora">R$ —</div>
+      <div class="res-hero__label">É o piso. Abaixo disso você está trabalhando no prejuízo.</div>
+    </div>
+
+    <div class="res-grid">
+      <div class="res-card">
+        <span class="res-card__label">Meta mensal com margem</span>
+        <div class="res-card__value" id="resMetaReal">—</div>
+        <div class="res-card__sub">Meta declarada + margem de segurança</div>
+      </div>
+      <div class="res-card">
+        <span class="res-card__label">Horas disponíveis / mês</span>
+        <div class="res-card__value" id="resHorasMes">—</div>
+        <div class="res-card__sub">Semanas × horas semanais</div>
+      </div>
+    </div>
+
+    <div class="res-servicos">
+      <div class="res-servicos__header">Preço mínimo por serviço</div>
+      <div id="resServicosRows"></div>
+    </div>
+
+    <div id="alertas"></div>
+
+    <div class="res-cta" id="resCta"></div>
+    <button class="btn-pdf" onclick="window.print()">↓ Salvar como PDF</button>
+  </div>
+
+  <div class="footer">
+    <div class="footer__brand">MAESTRO PALCO</div>
+    <div class="footer__sub">Calculadora de Precificação · Checkpoint 2 · T2 Financeiro</div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const SERVICOS = [
+  { id:'show',    nome:'Show / Cachê',          horasDefault:5,  precoDefault:'' },
+  { id:'aulaAv',  nome:'Aula avulsa',            horasDefault:2,  precoDefault:'' },
+  { id:'aulaReg', nome:'Aula regular (mensal)',  horasDefault:16, precoDefault:'' },
+  { id:'prod',    nome:'Produção / Gravação',    horasDefault:8,  precoDefault:'' },
+  { id:'digital', nome:'Produto digital (venda única)', horasDefault:40, precoDefault:'' },
+];
+
+function renderServicos() {
+  const tbody = document.getElementById('servicosBody');
+  tbody.innerHTML = SERVICOS.map(s => `
+    <tr>
+      <td class="td-name">${s.nome}</td>
+      <td><input type="number" id="horas-${s.id}" value="${s.horasDefault}" min="0.5" step="0.5" oninput="calcular()"></td>
+      <td><input type="number" id="cobro-${s.id}" placeholder="—" min="0" oninput="calcular()"></td>
+      <td class="td-result" id="res-${s.id}">—</td>
+    </tr>
+  `).join('');
+}
+
+function fmt(val) {
+  return 'R$ ' + Math.round(val).toLocaleString('pt-BR');
+}
+
+function salvarLocal() {
+  const dados = {
+    metaMensal:    document.getElementById('metaMensal').value,
+    horasSemana:   document.getElementById('horasSemana').value,
+    custosFixos:   document.getElementById('custosFixos').value,
+    margemDesejada:document.getElementById('margemDesejada').value,
+  };
+  SERVICOS.forEach(s => {
+    dados[`horas-${s.id}`] = document.getElementById(`horas-${s.id}`).value;
+    dados[`cobro-${s.id}`] = document.getElementById(`cobro-${s.id}`).value;
+  });
+  localStorage.setItem('palco_calculadora_v1', JSON.stringify(dados));
+}
+
+function carregarLocal() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('palco_calculadora_v1') || '{}');
+    ['metaMensal','horasSemana','custosFixos','margemDesejada'].forEach(id => {
+      if (saved[id] !== undefined && saved[id] !== '') document.getElementById(id).value = saved[id];
+    });
+    SERVICOS.forEach(s => {
+      const h = saved[`horas-${s.id}`];
+      const c = saved[`cobro-${s.id}`];
+      if (h !== undefined && h !== '') document.getElementById(`horas-${s.id}`).value = h;
+      if (c !== undefined && c !== '') document.getElementById(`cobro-${s.id}`).value = c;
+    });
+  } catch(e) {}
+}
+
+function calcular() {
+  const meta    = parseFloat(document.getElementById('metaMensal').value)  || 0;
+  const horas   = parseFloat(document.getElementById('horasSemana').value) || 0;
+  const custos  = parseFloat(document.getElementById('custosFixos').value) || 0;
+  const margem  = parseFloat(document.getElementById('margemDesejada').value) || 30;
+
+  const metaTotal = (meta + custos) * (1 + margem / 100);
+  const horasMes  = horas * 4.33;
+  const custoHora = horasMes > 0 ? metaTotal / horasMes : 0;
+
+  SERVICOS.forEach(s => {
+    const h = parseFloat(document.getElementById(`horas-${s.id}`).value) || 0;
+    const min = custoHora * h;
+    const el = document.getElementById(`res-${s.id}`);
+    el.textContent = custoHora > 0 && h > 0 ? fmt(min) : '—';
+  });
+
+  salvarLocal();
+}
+
+function mostrarResultado() {
+  const meta    = parseFloat(document.getElementById('metaMensal').value);
+  const horas   = parseFloat(document.getElementById('horasSemana').value);
+  const custos  = parseFloat(document.getElementById('custosFixos').value) || 0;
+  const margem  = parseFloat(document.getElementById('margemDesejada').value) || 30;
+
+  if (!meta || !horas) {
+    alert('Preencha pelo menos a meta mensal e as horas disponíveis por semana.');
+    return;
+  }
+
+  const metaTotal = (meta + custos) * (1 + margem / 100);
+  const horasMes  = horas * 4.33;
+  const custoHora = metaTotal / horasMes;
+
+  document.getElementById('resValorHora').textContent = fmt(custoHora) + ' / hora';
+  document.getElementById('resMetaReal').textContent  = fmt(metaTotal);
+  document.getElementById('resHorasMes').textContent  = Math.round(horasMes) + 'h';
+
+  // linhas por serviço com comparativo
+  let rows = '';
+  let alertas = '';
+  SERVICOS.forEach(s => {
+    const h = parseFloat(document.getElementById(`horas-${s.id}`).value) || 0;
+    const cobro = parseFloat(document.getElementById(`cobro-${s.id}`).value);
+    const min = custoHora * h;
+
+    let diff = '';
+    if (cobro > 0) {
+      const delta = cobro - min;
+      if (delta < 0) {
+        diff = `<span style="color:var(--red);font-size:11px;font-family:var(--font-mono)">▼ ${fmt(Math.abs(delta))} abaixo do mínimo</span>`;
+        alertas += `<div class="alerta fail">⚠ <strong>${s.nome}:</strong> você está cobrando ${fmt(cobro)} mas o mínimo é ${fmt(min)}. Diferença de ${fmt(Math.abs(delta))} por ${s.id === 'aulaReg' ? 'mês' : 'ocorrência'}.</div>`;
+      } else if (delta < min * 0.2) {
+        diff = `<span style="color:var(--yellow);font-size:11px;font-family:var(--font-mono)">▲ ${fmt(delta)} acima — margem apertada</span>`;
+      } else {
+        diff = `<span style="color:var(--green);font-size:11px;font-family:var(--font-mono)">✓ ${fmt(delta)} acima do mínimo</span>`;
+      }
+    }
+
+    rows += `
+    <div class="res-servico-row">
+      <div>
+        <div class="res-servico-row__name">${s.nome}</div>
+        ${diff}
+      </div>
+      <div class="res-servico-row__horas">${h}h por ocorrência</div>
+      <div class="res-servico-row__preco">${fmt(min)}</div>
+    </div>`;
+  });
+
+  document.getElementById('resServicosRows').innerHTML = rows;
+  document.getElementById('alertas').innerHTML = alertas;
+
+  // CTA
+  const temAbaixo = alertas.length > 0;
+  document.getElementById('resCta').innerHTML = temAbaixo
+    ? `Você está cobrando abaixo do mínimo em pelo menos um serviço. Isso significa que, quanto mais você trabalha nesse serviço, mais você se distancia da sua meta. <strong>Use esses números na próxima conversa de preço</strong> — você não está sendo ganancioso, está sendo profissional.`
+    : `Seus preços estão acima do mínimo viável — bom sinal. O próximo passo é garantir que o processo de <strong>fechamento</strong> esteja tão sólido quanto a precificação: proposta clara, follow-up consistente, resposta para "está caro" sem ceder no preço.`;
+
+  const res = document.getElementById('resultado');
+  res.classList.add('visible');
+  res.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+renderServicos();
+carregarLocal();
+calcular();
+</script>
+</body>
+</html>
