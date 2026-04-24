@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sequência de Email — Lançamento Maestro Palco</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e8e8e8; line-height: 1.7; padding: 40px 20px; }
+  .container { max-width: 820px; margin: 0 auto; }
+
+  .header { border-left: 4px solid #c9a84c; padding-left: 24px; margin-bottom: 56px; }
+  .header .badge { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .header .meta { font-size: 13px; color: #444; }
+  .header .meta span { margin-right: 20px; }
+
+  .instrucoes { background: #0e0e0e; border: 1px solid #1e1e1e; border-left: 3px solid #c9a84c; border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 48px; font-size: 13px; color: #888; line-height: 1.75; }
+  .instrucoes strong { color: #ccc; }
+
+  /* EMAIL CARD */
+  .email-wrap { margin-bottom: 48px; }
+
+  .email-index { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .email-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #c9a84c; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); padding: 4px 12px; border-radius: 4px; }
+  .email-dia { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #444; }
+  .email-momento { font-size: 12px; color: #555; }
+  .email-linha { flex: 1; height: 1px; background: #1a1a1a; }
+
+  .email-meta { background: #111; border: 1px solid #1e1e1e; border-radius: 8px 8px 0 0; padding: 20px 24px; border-bottom: none; }
+  .meta-row { display: grid; grid-template-columns: 100px 1fr; gap: 10px; margin-bottom: 8px; align-items: baseline; }
+  .meta-row:last-child { margin-bottom: 0; }
+  .meta-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #444; text-transform: uppercase; letter-spacing: 1px; }
+  .meta-value { font-size: 14px; color: #e8e8e8; font-weight: 500; }
+  .meta-value.subject { color: #fff; font-weight: 600; font-size: 15px; }
+  .meta-value.preview { color: #888; font-style: italic; }
+
+  .email-body { background: #0d0d0d; border: 1px solid #1e1e1e; border-radius: 0 0 8px 8px; padding: 28px 32px; }
+
+  .email-texto { font-size: 15px; color: #d0d0d0; line-height: 1.85; white-space: pre-wrap; }
+  .email-texto strong { color: #fff; }
+
+  .cta-bloco { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 18px 22px; margin: 24px 0; text-align: center; }
+  .cta-bloco .cta-btn { display: inline-block; background: #c9a84c; color: #0a0a14; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 28px; border-radius: 6px; text-decoration: none; }
+  .cta-bloco .cta-url { display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #555; margin-top: 8px; }
+
+  .assinatura { margin-top: 24px; padding-top: 20px; border-top: 1px solid #1a1a1a; font-size: 14px; color: #888; }
+  .assinatura strong { color: #ccc; }
+
+  .nota-copy { background: #111; border-left: 2px solid #38bdf8; padding: 12px 16px; margin-top: 16px; border-radius: 0 6px 6px 0; font-size: 12px; color: #555; font-family: 'JetBrains Mono', monospace; }
+  .nota-copy strong { color: #38bdf8; }
+
+  .separator { height: 1px; background: #111; margin: 48px 0; }
+
+  .footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #1a1a1a; font-size: 12px; color: #333; text-align: center; }
+
+  @media(max-width:600px) {
+    .meta-row { grid-template-columns: 1fr; gap: 3px; }
+    .email-body { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="badge">Copy · Sequência de Lançamento</div>
+    <h1>7 Emails — Maestro Palco</h1>
+    <div class="meta">
+      <span>Arco: D−7 até D+7</span>
+      <span>Copy: Ry Schwartz method</span>
+      <span>Voz: Edilson Morais</span>
+    </div>
+  </div>
+
+  <div class="instrucoes">
+    <strong>Como usar:</strong> Substitua <strong>[URL]</strong> pela URL da página de vendas, <strong>[DATA]</strong> pela data de fechamento do carrinho e <strong>[DIA]</strong> pelo dia da semana correspondente antes de agendar. Os campos entre colchetes são os únicos que precisam de ajuste. O resto está pronto para publicar.
+  </div>
+
+  <!-- EMAIL 1 -->
+  <div class="email-wrap">
+    <div class="email-index">
+      <span class="email-num">E1</span>
+      <span class="email-dia">D−7</span>
+      <span class="email-momento">Abertura do arco — nomeia a dor, não menciona o produto</span>
+      <span class="email-linha"></span>
+    </div>
+
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-label">Subject</span>
+        <span class="meta-value subject">Você não tem um problema de talento.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Preview</span>
+        <span class="meta-value preview">Tem outro.</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-texto">Edilson aqui.
+
+Vou ser direto porque acho que você merece isso.
+
+Se você está lendo isso, provavelmente já sabe que é bom no que faz. Você toca bem. Às vezes melhor do que pessoas que cobram o dobro do que você. E mesmo assim, no final do mês, o número não fecha do jeito que deveria.
+
+Isso não é problema de talento.
+
+É uma situação que vejo se repetir em todo músico que conheço — e que já vivi na própria pele. Você sabe fazer a parte artística. Mas ninguém nunca te ensinou a parte de negócio. Como calcular o que cobrar. Como apresentar um preço sem se desculpar por ele. Como organizar os serviços que você oferece de um jeito que faça sentido financeiro.
+
+Não é culpa sua. A escola de música não ensina isso. O mercado não ensina isso. E a maioria dos cursos sobre carreira musical fala de presença digital — como se o problema fosse você não postar o suficiente.
+
+Não é isso.
+
+Nos próximos dias vou te mostrar o que eu acho que é. E o que eu fiz com isso.
+</div>
+      <div class="assinatura">— <strong>Edilson</strong></div>
+      <div class="nota-copy"><strong>Nota:</strong> Não mencionar o produto. Terminar em aberto — cria expectativa para o E2.</div>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- EMAIL 2 -->
+  <div class="email-wrap">
+    <div class="email-index">
+      <span class="email-num">E2</span>
+      <span class="email-dia">D−4</span>
+      <span class="email-momento">Educação + teaser — a história dos dois músicos</span>
+      <span class="email-linha"></span>
+    </div>
+
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-label">Subject</span>
+        <span class="meta-value subject">A diferença entre cobrar R$80 e cobrar R$800 (não é o que você pensa)</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Preview</span>
+        <span class="meta-value preview">Dois músicos. Mesmo nível técnico. Preços completamente diferentes.</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-texto">Há pouco tempo conversei com dois músicos que tocam o mesmo instrumento, estão no mesmo nível técnico e trabalham na mesma cidade.
+
+Um cobra R$80 a hora de aula. O outro cobra R$350.
+
+Perguntei para o que cobra mais qual era o segredo. Ele não falou em experiência. Não falou em rede de contatos. Falou em uma conta simples:
+
+<strong>"Eu sei quanto custa a minha hora. Então sei o mínimo que posso cobrar sem trabalhar no prejuízo."</strong>
+
+Isso é tudo.
+
+O músico que cobra R$80 não cobra barato porque é menos talentoso. Cobra barato porque nunca parou para fazer essa conta. Quanto preciso ganhar por mês para viver? Quantas horas tenho disponíveis? Quais são meus custos fixos?
+
+Sem responder essas três perguntas, você está chutando o preço. E quando se chuta, geralmente se chuta para baixo — porque dá medo de cobrar mais e perder o cliente.
+
+Existe uma maneira de parar de chutar. É uma calculadora. Você coloca seus números reais — meta de renda, horas disponíveis, custos — e ela devolve o preço mínimo por serviço. Não tem como cobrar abaixo disso sem trabalhar no prejuízo.
+
+Na semana que vem vou te dar acesso a essa calculadora. E mais três ferramentas que resolvem os outros problemas que ninguém ensina para o músico.
+
+Fica de olho.
+</div>
+      <div class="assinatura">— <strong>Edilson</strong></div>
+      <div class="nota-copy"><strong>Nota:</strong> Não dar o link da Calculadora aqui — isso quebra o gatilho de antecipação. A ferramenta é o teaser do produto.</div>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- EMAIL 3 -->
+  <div class="email-wrap">
+    <div class="email-index">
+      <span class="email-num">E3</span>
+      <span class="email-dia">D−1</span>
+      <span class="email-momento">Pré-abertura — apresentação honesta, define para quem é</span>
+      <span class="email-linha"></span>
+    </div>
+
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-label">Subject</span>
+        <span class="meta-value subject">Abre amanhã. Mas antes, preciso ser honesto sobre o que é.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Preview</span>
+        <span class="meta-value preview">O Maestro Palco não é para todo mundo — e isso é intencional.</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-texto">Amanhã às 9h abro o Maestro Palco.
+
+Mas antes quero ser honesto sobre o que é esse curso — e sobre para quem ele foi feito.
+
+<strong>O Maestro Palco não é para músico iniciante que quer aprender a tocar.</strong> Não é para quem está começando do zero. E não é para quem está procurando motivação.
+
+É para músico que já trabalha. Que já toca, já dá aula, já faz show ou sessão. Que tem o problema de não saber como organizar o lado financeiro e a presença da carreira.
+
+Se esse é você, o curso resolve quatro coisas específicas:
+
+<strong>Identidade</strong> — o que você tem que as pessoas pagariam especificamente em você, como explicar o que você faz em uma frase que não soa genérica, por que sua história é o argumento comercial que ninguém consegue copiar.
+
+<strong>Financeiro</strong> — de onde vem seu dinheiro hoje e de onde pode vir, quanto cobrar por cada serviço sem chutar, como criar uma segunda fonte de renda sem parar de tocar.
+
+<strong>Sistema e Presença</strong> — como ser encontrado por quem já quer o que você oferece, o que fazer no Instagram quando não sabe o que postar, como transformar o que você já sabe em conteúdo sem virar criador de conteúdo.
+
+<strong>Plano 90 Dias</strong> — quais são seus três primeiros caminhos de renda e em que ordem atacar, como não deixar a rotina engolir o plano, o que fazer na semana 1 depois que o curso acabar.
+
+São 23 aulas. Cada módulo termina com uma ferramenta prática: calculadora de precificação, checklist de presença visual, banco de 30 perguntas para conteúdo, template de proposta comercial pronto para enviar.
+
+Amanhã às 9h o link chega aqui.
+</div>
+      <div class="assinatura">— <strong>Edilson</strong></div>
+      <div class="nota-copy"><strong>Nota:</strong> A disqualificação ("não é para iniciante") aumenta a conversão dos qualificados — eles se sentem vistos e tratados como profissionais.</div>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- EMAIL 4 -->
+  <div class="email-wrap">
+    <div class="email-index">
+      <span class="email-num">E4</span>
+      <span class="email-dia">D 0</span>
+      <span class="email-momento">Abertura do carrinho — direto, oferta completa, CTA claro</span>
+      <span class="email-linha"></span>
+    </div>
+
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-label">Subject</span>
+        <span class="meta-value subject">Maestro Palco está aberto.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Preview</span>
+        <span class="meta-value preview">O link está aqui.</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-texto">Está aberto.
+</div>
+      <div class="cta-bloco">
+        <span class="cta-btn">ACESSAR O MAESTRO PALCO →</span>
+        <span class="cta-url">[URL]</span>
+      </div>
+      <div class="email-texto">O que você recebe:
+
+— 23 aulas em 4 módulos: Identidade, Financeiro, Sistema e Presença, Plano 90 Dias
+— Auditoria de Presença Visual: 20 itens para diagnosticar sua imagem online
+— Calculadora de Precificação: coloque seus números, receba o preço mínimo por serviço
+— 30 Perguntas que Viram Conteúdo: pauta para 15 semanas sem inventar nada
+— Template de Proposta Comercial: pronto para usar na próxima oportunidade
+
+Investimento: R$397 à vista ou 12× R$37,90.
+
+Garantia de 30 dias — se depois de assistir você achar que não valeu, devolvo o dinheiro. Sem perguntas.
+
+Fecha em [DATA].
+</div>
+      <div class="cta-bloco">
+        <span class="cta-btn">QUERO O MAESTRO PALCO →</span>
+        <span class="cta-url">[URL]</span>
+      </div>
+      <div class="assinatura">— <strong>Edilson</strong></div>
+      <div class="nota-copy"><strong>Nota:</strong> O email mais curto da sequência depois do E7. Quem chegou até aqui já foi aquecido — precisa do link, não de mais copy.</div>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- EMAIL 5 -->
+  <div class="email-wrap">
+    <div class="email-index">
+      <span class="email-num">E5</span>
+      <span class="email-dia">D+2</span>
+      <span class="email-momento">Objeção silenciosa — "será que funciona para mim?"</span>
+      <span class="email-linha"></span>
+    </div>
+
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-label">Subject</span>
+        <span class="meta-value subject">Por que músicos talentosos ficam parados anos no mesmo ponto?</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Preview</span>
+        <span class="meta-value preview">Não é falta de oportunidade.</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-texto">Essa é a pergunta que mais me fazem.
+
+E a resposta que mais ouço — de coaches de carreira, de professores de música — é que falta "mentalidade". Falta "consistência". Falta "presença digital".
+
+Não concordo.
+
+O que eu vejo, de perto, é isso: o músico talentoso fica parado porque está agindo no improviso em tudo que não é música. Ele improvisa o preço. Improvisa a apresentação de si mesmo. Improvisa o que fazer no Instagram. Improvisa quando vai tentar fechar um novo cliente.
+
+Improviso funciona no palco. Na carreira, não.
+
+Quando você não sabe quem você é para o mercado — não artisticamente, mas comercialmente — você não consegue comunicar isso com clareza. Alguém pergunta o que você faz e você passa 30 segundos tentando explicar. A pessoa não entende. A oportunidade passa.
+
+Quando você não sabe o preço mínimo que pode cobrar, você aceita o que te oferecem. E depois fica com raiva do cliente que "não valorizou seu trabalho" — quando na verdade você que cedeu sem precisar.
+
+Quando você não tem um sistema para aparecer regularmente, você some por semanas e volta sem saber por onde começar de novo.
+
+Cada um desses problemas tem uma solução específica. O Maestro Palco foi construído em torno delas — uma por módulo.
+
+O carrinho fecha [DIA].
+</div>
+      <div class="cta-bloco">
+        <span class="cta-btn">ACESSAR O MAESTRO PALCO →</span>
+        <span class="cta-url">[URL]</span>
+      </div>
+      <div class="assinatura">— <strong>Edilson</strong></div>
+      <div class="nota-copy"><strong>Nota:</strong> Este email fala para quem está em cima do muro — reconhece nos problemas listados a própria situação. O CTA no final, não no começo.</div>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- EMAIL 6 -->
+  <div class="email-wrap">
+    <div class="email-index">
+      <span class="email-num">E6</span>
+      <span class="email-dia">D+5</span>
+      <span class="email-momento">Transformação específica por módulo + garantia como eliminador de risco</span>
+      <span class="email-linha"></span>
+    </div>
+
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-label">Subject</span>
+        <span class="meta-value subject">O que acontece em 2h30min de vídeo.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Preview</span>
+        <span class="meta-value preview">Vou ser específico.</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-texto">Alguém me perguntou: "O que exatamente muda depois que eu assisto o curso?"
+
+Vou responder com precisão.
+
+Depois do <strong>módulo de Identidade</strong>: você sabe o que você tem que as pessoas pagariam especificamente em você — não em qualquer músico. Você consegue explicar o que faz em uma frase que não soa genérica. Você faz a Auditoria de Presença Visual e sabe exatamente o que mudar na sua imagem online — não "melhorar em geral", mas 20 itens específicos com status claro.
+
+Depois do <strong>módulo Financeiro</strong>: você abre a Calculadora de Precificação, coloca seus números reais e vê em tempo real o preço mínimo por show, por aula avulsa, por aula mensal, por produção. Você nunca mais chuta o preço. Você sabe se está cobrando abaixo do mínimo — e quanto está deixando na mesa por mês.
+
+Depois do <strong>módulo Sistema e Presença</strong>: você tem 30 perguntas que se transformam em posts, reels e stories — pauta para 15 semanas sem precisar inventar do zero. Você sabe como ser encontrado por quem já procura o que você oferece sem depender de viralizar.
+
+Depois do <strong>módulo Plano 90 Dias</strong>: você abre o Template de Proposta Comercial, preenche os dados da próxima oportunidade que aparecer — show, aula, evento, parceria — e envia em cinco minutos. Sem inventar do zero. Sem soar amador.
+
+Isso é o que muda. Não é motivação. São ferramentas e clareza — coisas que você usa na semana seguinte.
+
+Uma última coisa: o curso tem garantia de 30 dias. Se depois de assistir você achar que não valeu R$397, me manda um email e devolvo tudo. Sem perguntas, sem condições. Você não corre risco nenhum.
+
+Fecha [DIA] à meia-noite.
+</div>
+      <div class="cta-bloco">
+        <span class="cta-btn">ENTRAR NO MAESTRO PALCO →</span>
+        <span class="cta-url">[URL]</span>
+      </div>
+      <div class="assinatura">— <strong>Edilson</strong></div>
+      <div class="nota-copy"><strong>Nota:</strong> A garantia aqui não é cláusula fine print — é argumento central. Elimina o risco percebido para quem está quase decidido mas tem medo de se arrepender.</div>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- EMAIL 7 -->
+  <div class="email-wrap">
+    <div class="email-index">
+      <span class="email-num">E7</span>
+      <span class="email-dia">D+7</span>
+      <span class="email-momento">Fechamento — o email mais curto. Uma decisão.</span>
+      <span class="email-linha"></span>
+    </div>
+
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-label">Subject</span>
+        <span class="meta-value subject">Fecha hoje à meia-noite.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Preview</span>
+        <span class="meta-value preview">Última vez que mando esse link.</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-texto">Fecha hoje à meia-noite.
+
+Não vai ter extensão. Não reabre amanhã.
+
+Se você ficou esses dias pensando, a pergunta que importa não é "será que vale R$397?". É: o que muda na sua carreira se você continuar fazendo o que fez até agora?
+</div>
+      <div class="cta-bloco">
+        <span class="cta-btn">ENTRAR NO MAESTRO PALCO — ÚLTIMO DIA →</span>
+        <span class="cta-url">[URL]</span>
+      </div>
+      <div class="assinatura">— <strong>Edilson</strong></div>
+      <div class="nota-copy"><strong>Nota:</strong> Três parágrafos. Sem listar benefícios de novo — quem leu os 6 emails anteriores já sabe tudo. A única pergunta que importa é a do segundo parágrafo.</div>
+    </div>
+  </div>
+
+  <!-- RODAPÉ TÉCNICO -->
+  <div class="separator"></div>
+
+  <div style="background:#0e0e0e;border:1px solid #1a1a1a;border-radius:8px;padding:28px 32px;margin-bottom:48px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c9a84c;margin-bottom:20px;">Configuração Técnica — Checklist</div>
+
+    <div style="display:grid;gap:10px;">
+      <div style="display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:#888;align-items:baseline;">
+        <span style="color:#4ADE80;">□</span>
+        <span><strong style="color:#ccc;">Plataforma de email:</strong> usar ferramenta que suporte sequência automática por tag (ActiveCampaign, Mailchimp, Brevo ou equivalente)</span>
+      </div>
+      <div style="display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:#888;align-items:baseline;">
+        <span style="color:#4ADE80;">□</span>
+        <span><strong style="color:#ccc;">Tag de entrada:</strong> quem baixa o lead magnet (Auditoria) entra na sequência automaticamente com tag "maestropalco-lead"</span>
+      </div>
+      <div style="display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:#888;align-items:baseline;">
+        <span style="color:#4ADE80;">□</span>
+        <span><strong style="color:#ccc;">Tag de saída:</strong> quem compra sai da sequência imediatamente — configurar automação com tag "maestropalco-aluno"</span>
+      </div>
+      <div style="display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:#888;align-items:baseline;">
+        <span style="color:#4ADE80;">□</span>
+        <span><strong style="color:#ccc;">Horário de disparo:</strong> E1 às 9h · E2 às 9h · E3 às 19h · E4 às 9h · E5 às 9h · E6 às 9h · E7 às 8h (antes do fechamento)</span>
+      </div>
+      <div style="display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:#888;align-items:baseline;">
+        <span style="color:#4ADE80;">□</span>
+        <span><strong style="color:#ccc;">Remetente:</strong> Edilson Morais &lt;edilson@rota50ia.com&gt; — nome pessoal, não nome da marca</span>
+      </div>
+      <div style="display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:#888;align-items:baseline;">
+        <span style="color:#4ADE80;">□</span>
+        <span><strong style="color:#ccc;">Substituições antes de agendar:</strong> [URL] → link real · [DATA] → "dia X de maio" · [DIA] → dia da semana</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Maestro Palco · Sequência de Email · 7 emails · D−7 até D+7
+  </div>
+
+</div>
+</body>
+</html>
