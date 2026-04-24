@@ -1,0 +1,140 @@
+{
+  "name": "PALCO — Lead Magnet Auditoria",
+  "nodes": [
+    {
+      "id": "node-webhook",
+      "name": "Webhook Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-560, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-auditoria-palco",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "lead-auditoria-palco"
+    },
+    {
+      "id": "node-formatar",
+      "name": "Formatar Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-336, 300],
+      "parameters": {
+        "jsCode": "const b = $input.first().json.body || $input.first().json;\n\nconst nome     = (b.nome     || '').trim();\nconst email    = (b.email    || '').trim().toLowerCase();\nconst whatsapp = (b.whatsapp || '').replace(/[^0-9]/g, '');\n\nif (!email) throw new Error('email obrigatório');\n\nreturn [{ json: { nome, email, whatsapp, tem_whatsapp: whatsapp.length >= 10 } }];"
+      }
+    },
+    {
+      "id": "node-supabase",
+      "name": "Salvar Lead Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [-112, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://ctvdlamxicoxniyqcpfd.supabase.co/rest/v1/leads_palco",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey",        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0dmRsYW14aWNveG5peXFjcGZkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDQyNDQwOSwiZXhwIjoyMDU2MDAwNDA5fQ.n43Tg5yI2HB2R3MCvZRqc0lZCWlnMAA8hFFRqDO_-9k" },
+            { "name": "Authorization", "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0dmRsYW14aWNveG5peXFjcGZkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MDQyNDQwOSwiZXhwIjoyMDU2MDAwNDA5fQ.n43Tg5yI2HB2R3MCvZRqc0lZCWlnMAA8hFFRqDO_-9k" },
+            { "name": "Content-Type",  "value": "application/json" },
+            { "name": "Prefer",        "value": "resolution=ignore-duplicates,return=minimal" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ nome: $json.nome, email: $json.email, whatsapp: $json.whatsapp || null, origem: 'auditoria-gratuita' }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "node-tem-whatsapp",
+      "name": "Tem WhatsApp?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [112, 300],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 1 },
+          "conditions": [
+            {
+              "id": "cond-wpp",
+              "leftValue": "={{ $('Formatar Lead').item.json.tem_whatsapp }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "node-whatsapp",
+      "name": "Enviar WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [336, 180],
+      "parameters": {
+        "method": "POST",
+        "url": "https://edilsonmorais.uazapi.com/send/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "token", "value": "62a7447d-fdb3-41e0-b342-4835cb812490" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ number: $('Formatar Lead').item.json.whatsapp, text: 'Olá' + ($('Formatar Lead').item.json.nome ? ', ' + $('Formatar Lead').item.json.nome.split(' ')[0] : '') + '! 🎭\\n\\nAqui está o seu checklist:\\n👉 https://ferramentas-palco.rota50ia.com/AUDITORIA-PRESENCA-VISUAL.html\\n\\nSão 20 itens que mostram exatamente o que mudar na sua imagem online como músico. O resultado fica salvo no navegador — você pode salvar como PDF também.\\n\\nQualquer dúvida, é só responder aqui.\\n\\n— Edilson, Maestro Palco' }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "node-responder",
+      "name": "Responder OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [560, 300],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true }) }}",
+        "options": { "responseCode": 200 }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Lead": {
+      "main": [
+        [{ "node": "Formatar Lead", "type": "main", "index": 0 }]
+      ]
+    },
+    "Formatar Lead": {
+      "main": [
+        [{ "node": "Salvar Lead Supabase", "type": "main", "index": 0 }]
+      ]
+    },
+    "Salvar Lead Supabase": {
+      "main": [
+        [{ "node": "Tem WhatsApp?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Tem WhatsApp?": {
+      "main": [
+        [{ "node": "Enviar WhatsApp", "type": "main", "index": 0 }],
+        [{ "node": "Responder OK",    "type": "main", "index": 0 }]
+      ]
+    },
+    "Enviar WhatsApp": {
+      "main": [
+        [{ "node": "Responder OK", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": true,
+  "settings": { "executionOrder": "v1" },
+  "tags": []
+}
