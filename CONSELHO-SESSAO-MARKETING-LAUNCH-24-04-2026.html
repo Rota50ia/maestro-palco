@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Board Meeting — Plano de Lançamento Maestro Palco — 24/04/2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e8e8e8; line-height: 1.7; padding: 40px 20px; }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  .header { border-left: 4px solid #c9a84c; padding-left: 24px; margin-bottom: 48px; }
+  .header .badge { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #c9a84c; margin-bottom: 8px; }
+  .header h1 { font-size: 28px; font-weight: 700; color: #ffffff; margin-bottom: 6px; line-height: 1.3; }
+  .header .meta span { color: #555; margin-right: 16px; font-size: 13px; }
+
+  .membros { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+  .membro-tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; border: 1px solid #2a2a2a; color: #aaa; }
+  .membro-tag.ceo { border-color: #c9a84c; color: #c9a84c; }
+
+  .section { margin-bottom: 56px; }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #444; margin-bottom: 24px; padding-bottom: 8px; border-bottom: 1px solid #1a1a1a; }
+
+  .diagnostico { background: #0e0e0e; border: 1px solid #1e1e1e; border-radius: 8px; padding: 24px 28px; margin-bottom: 16px; }
+  .diagnostico h3 { font-size: 13px; font-weight: 600; color: #c9a84c; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+  .diagnostico p, .diagnostico li { font-size: 14px; color: #aaa; line-height: 1.75; }
+  .diagnostico ul { padding-left: 20px; margin-top: 8px; }
+  .diagnostico li { margin-bottom: 4px; }
+  .diagnostico .ok { color: #4ADE80; }
+  .diagnostico .falta { color: #FBBF24; }
+  .diagnostico .gap { color: #F87171; }
+
+  .conselheiro { margin-bottom: 20px; padding: 22px 26px; background: #111; border-radius: 8px; border-left: 3px solid #222; }
+  .conselheiro.alex { border-left-color: #e05c2b; }
+  .conselheiro.ry { border-left-color: #c9a84c; }
+  .conselheiro.seth { border-left-color: #9b59b6; }
+  .conselheiro.brad { border-left-color: #38bdf8; }
+  .conselheiro.thiago { border-left-color: #4ADE80; }
+
+  .conselheiro-nome { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2px; }
+  .conselheiro.alex .conselheiro-nome { color: #e05c2b; }
+  .conselheiro.ry .conselheiro-nome { color: #c9a84c; }
+  .conselheiro.seth .conselheiro-nome { color: #9b59b6; }
+  .conselheiro.brad .conselheiro-nome { color: #38bdf8; }
+  .conselheiro.thiago .conselheiro-nome { color: #4ADE80; }
+
+  .conselheiro-papel { font-size: 11px; color: #444; margin-bottom: 14px; font-family: 'JetBrains Mono', monospace; }
+  .conselheiro p { font-size: 14px; color: #ccc; margin-bottom: 10px; line-height: 1.75; }
+  .conselheiro p:last-child { margin-bottom: 0; }
+  .conselheiro strong { color: #fff; }
+  .conselheiro em { color: #c9a84c; font-style: normal; }
+  .conselheiro ul { padding-left: 20px; margin: 8px 0; }
+  .conselheiro li { font-size: 14px; color: #ccc; margin-bottom: 5px; line-height: 1.65; }
+
+  .pauta-titulo { background: #0d0d0d; border-left: 3px solid #c9a84c; padding: 14px 20px; margin: 32px 0 20px; border-radius: 0 6px 6px 0; }
+  .pauta-titulo h2 { font-size: 15px; font-weight: 700; color: #fff; margin: 0; }
+  .pauta-titulo span { font-size: 11px; color: #555; font-family: 'JetBrains Mono', monospace; display: block; margin-top: 3px; }
+
+  .decisao { background: #0d0d0d; border: 1px solid rgba(201,168,76,0.25); border-radius: 8px; padding: 24px 28px; margin-bottom: 16px; }
+  .decisao h3 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #c9a84c; margin-bottom: 16px; }
+  .decisao-item { display: grid; grid-template-columns: 180px 1fr; gap: 12px; margin-bottom: 10px; font-size: 14px; align-items: baseline; }
+  .decisao-label { color: #555; font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+  .decisao-valor { color: #e8e8e8; font-weight: 500; }
+  .decisao-valor.destaque { color: #c9a84c; font-weight: 600; }
+
+  .email-card { background: #0d0d0d; border: 1px solid #1e1e1e; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+  .email-header { padding: 14px 20px; border-bottom: 1px solid #1a1a1a; display: flex; gap: 12px; align-items: baseline; }
+  .email-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #c9a84c; font-weight: 600; min-width: 20px; }
+  .email-dia { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #444; min-width: 40px; }
+  .email-subject { font-size: 13px; font-weight: 600; color: #fff; }
+  .email-body { padding: 16px 20px; font-size: 13px; color: #888; line-height: 1.7; }
+  .email-body strong { color: #ccc; }
+  .email-body .gancho { color: #c9a84c; font-style: italic; }
+
+  .ig-perfil { background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+  .ig-perfil h3 { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #38bdf8; margin-bottom: 16px; }
+  .ig-campo { display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 10px; font-size: 13px; align-items: baseline; }
+  .ig-campo-label { color: #444; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .ig-campo-valor { color: #e8e8e8; }
+  .ig-campo-valor .handle { color: #38bdf8; font-weight: 600; font-size: 15px; }
+  .ig-bio { background: #0d0d0d; border-radius: 6px; padding: 14px 16px; font-size: 13px; color: #ccc; line-height: 1.8; font-family: 'JetBrains Mono', monospace; border: 1px solid #1a1a1a; margin-top: 4px; white-space: pre-line; }
+
+  .pilar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .pilar-card { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 8px; padding: 16px 18px; }
+  .pilar-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #c9a84c; margin-bottom: 6px; }
+  .pilar-nome { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .pilar-desc { font-size: 12px; color: #666; line-height: 1.65; }
+  .pilar-exemplos { font-size: 11px; color: #444; margin-top: 8px; line-height: 1.6; }
+
+  .timeline { margin-top: 8px; }
+  .semana { background: #0e0e0e; border: 1px solid #1a1a1a; border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  .semana-header { padding: 12px 20px; background: #111; border-bottom: 1px solid #1a1a1a; display: flex; gap: 16px; align-items: center; }
+  .semana-num { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #c9a84c; }
+  .semana-titulo { font-size: 14px; font-weight: 600; color: #fff; }
+  .semana-datas { font-size: 11px; color: #444; font-family: 'JetBrains Mono', monospace; margin-left: auto; }
+  .semana-body { padding: 16px 20px; }
+  .semana-task { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13px; color: #aaa; align-items: flex-start; }
+  .semana-task::before { content: '→'; color: #444; flex-shrink: 0; margin-top: 1px; }
+  .semana-task strong { color: #ddd; }
+  .semana-meta { margin-top: 12px; padding-top: 12px; border-top: 1px solid #1a1a1a; font-size: 12px; color: #555; font-family: 'JetBrains Mono', monospace; }
+
+  .grade-grid { display: grid; grid-template-columns: repeat(3, 80px); gap: 3px; margin-top: 12px; }
+  .grade-cell { width: 80px; height: 80px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #555; font-weight: 600; text-align: center; line-height: 1.4; }
+  .grade-cell.frase { background: #141422; border: 1px solid rgba(201,168,76,0.15); color: #c9a84c; }
+  .grade-cell.carrossel { background: #111827; border: 1px solid rgba(56,189,248,0.15); color: #38bdf8; }
+  .grade-cell.reel { background: #0f1a0f; border: 1px solid rgba(74,222,128,0.15); color: #4ADE80; }
+
+  .entregavel { background: #111; border: 1px solid #1e1e1e; border-radius: 8px; padding: 16px 20px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 12px; }
+  .entregavel-check { color: #4ADE80; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .entregavel-check.pending { color: #FBBF24; }
+  .entregavel-body { font-size: 13px; }
+  .entregavel-body strong { color: #fff; display: block; margin-bottom: 2px; }
+  .entregavel-body span { color: #555; font-size: 12px; }
+  .entregavel-dono { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-left: auto; flex-shrink: 0; margin-top: 2px; }
+  .entregavel-dono.alex { background: rgba(224,92,43,0.1); color: #e05c2b; }
+  .entregavel-dono.ry { background: rgba(201,168,76,0.1); color: #c9a84c; }
+  .entregavel-dono.seth { background: rgba(155,89,182,0.1); color: #9b59b6; }
+  .entregavel-dono.brad { background: rgba(56,189,248,0.1); color: #38bdf8; }
+  .entregavel-dono.thiago { background: rgba(74,222,128,0.1); color: #4ADE80; }
+  .entregavel-dono.edilson { background: rgba(201,168,76,0.1); color: #c9a84c; border: 1px solid rgba(201,168,76,0.3); }
+
+  .ads-card { background: #0d0d0d; border: 1px solid #1e1e1e; border-radius: 8px; padding: 20px 24px; margin-bottom: 12px; }
+  .ads-card h3 { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4ADE80; margin-bottom: 14px; }
+  .ads-row { display: grid; grid-template-columns: 160px 1fr; gap: 10px; margin-bottom: 8px; font-size: 13px; }
+  .ads-label { color: #444; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .ads-val { color: #ccc; }
+
+  .sintese { background: #0d0d0d; border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 32px; margin-top: 48px; margin-bottom: 48px; }
+  .sintese h3 { font-size: 14px; font-weight: 700; color: #c9a84c; margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+  .sintese p { font-size: 14px; color: #999; line-height: 1.8; margin-bottom: 12px; }
+  .sintese p:last-child { margin-bottom: 0; }
+  .sintese strong { color: #fff; }
+
+  .footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; font-size: 12px; color: #333; }
+
+  @media(max-width:600px) {
+    .pilar-grid { grid-template-columns: 1fr; }
+    .decisao-item { grid-template-columns: 1fr; gap: 4px; }
+    .ig-campo { grid-template-columns: 1fr; gap: 4px; }
+    .ads-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge">Board Meeting · Maestro Palco</div>
+    <h1>Plano de Lançamento — Estratégia Completa de Marketing</h1>
+    <div class="meta">
+      <span>24/04/2026</span>
+      <span>Sessão #4</span>
+      <span>Pauta: Launch · Instagram · Email · Ads · Timeline</span>
+    </div>
+  </div>
+
+  <!-- MEMBROS -->
+  <div class="membros">
+    <div class="membro-tag ceo">Edilson Morais — CEO</div>
+    <div class="membro-tag" style="border-color:#e05c2b;color:#e05c2b;">Alex Hormozi — Oferta e Conversão</div>
+    <div class="membro-tag" style="border-color:#c9a84c;color:#c9a84c;">Ry Schwartz — Copy e Email</div>
+    <div class="membro-tag" style="border-color:#9b59b6;color:#9b59b6;">Seth Godin — Tribo e Orgânico</div>
+    <div class="membro-tag" style="border-color:#38bdf8;color:#38bdf8;">Brad Frost — Design e Visual</div>
+    <div class="membro-tag" style="border-color:#4ADE80;color:#4ADE80;">Thiago Finch — Execução Digital BR</div>
+  </div>
+
+  <!-- DIAGNÓSTICO -->
+  <div class="section">
+    <div class="section-title">Diagnóstico — O que o Conselho Recebeu</div>
+
+    <div class="diagnostico">
+      <h3>Ativos Existentes</h3>
+      <ul>
+        <li class="ok">✓ Curso completo — 23 aulas, 4 temas, gravado e pronto</li>
+        <li class="ok">✓ Página de vendas publicada na HostGator</li>
+        <li class="ok">✓ 4 ferramentas de checkpoint em ferramentas-palco.rota50ia.com</li>
+        <li class="ok">✓ Palco App operacional (agente WhatsApp, R$97/mês, Eduzz produto 3012645)</li>
+        <li class="ok">✓ VSL de áudio produzido — 6 cenas, ~2h40min</li>
+        <li class="ok">✓ Checkout na Eduzz (R$397 à vista / 12× R$37,90)</li>
+        <li class="ok">✓ Infraestrutura completa: n8n + Supabase + WhatsApp</li>
+      </ul>
+    </div>
+
+    <div class="diagnostico">
+      <h3>Gaps Identificados</h3>
+      <ul>
+        <li class="falta">⚠ Nenhum perfil de marketing criado — @maestropalco inexistente</li>
+        <li class="falta">⚠ Lista de email não estruturada — nenhuma sequência de lançamento</li>
+        <li class="falta">⚠ Nenhum conteúdo publicado orientado à venda do curso</li>
+        <li class="falta">⚠ VSL não finalizado — falta montagem do vídeo</li>
+        <li class="gap">✕ Zero prova social — curso ainda sem alunos públicos</li>
+        <li class="gap">✕ Nenhum lead magnet ativo — não existe captura de leads estruturada</li>
+      </ul>
+    </div>
+
+    <div class="diagnostico">
+      <h3>Oportunidades Imediatas</h3>
+      <ul>
+        <li style="color:#ccc;">→ Edilson tem presença pessoal no Instagram — base de audiência já existe</li>
+        <li style="color:#ccc;">→ O produto resolve uma dor real e específica — diferente de "aprenda a tocar"</li>
+        <li style="color:#ccc;">→ As 4 ferramentas de checkpoint são lead magnets naturais e já estão prontas</li>
+        <li style="color:#ccc;">→ O Palco App cria um loop de retenção que justifica o funil</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PAUTA 1: INSTAGRAM -->
+  <div class="section">
+    <div class="pauta-titulo">
+      <h2>Tópico 1 — Instagram @maestropalco: perfil separado</h2>
+      <span>Identidade visual · Bio · Pilares · Grade · Frequência</span>
+    </div>
+
+    <div class="conselheiro brad">
+      <div class="conselheiro-nome">Brad Frost</div>
+      <div class="conselheiro-papel">Design System · Identidade Visual</div>
+      <p>O perfil pessoal do Edilson e o perfil do produto precisam ser separados por uma razão simples: <strong>a conta pessoal vende o músico, a conta do produto vende a transformação.</strong> Quando você mistura os dois, cria ruído. Quem segue Edilson pelas músicas não quer ver copy de curso. Quem chega pelo curso não sabe se está seguindo uma pessoa ou um programa.</p>
+      <p>O <em>@maestropalco</em> é uma marca, não uma pessoa. Estende o design system Podium Stage já existente: <strong>fundo Midnight (#1C1C2E), tipografia Montserrat 900, dourado (#C9A84C) como elemento de corte</strong>. Cada post deve parecer que saiu do mesmo lugar que a página de vendas e as ferramentas — coerência visual é o que cria credibilidade antes de qualquer palavra.</p>
+      <p>Foto de perfil: o logotipo do Maestro Palco em fundo escuro — não a face do Edilson. A face dele vai nos Reels. O logo vai na identidade estática.</p>
+    </div>
+
+    <div class="conselheiro seth">
+      <div class="conselheiro-nome">Seth Godin</div>
+      <div class="conselheiro-papel">Estratégia de Tribo · Marketing de Permissão</div>
+      <p>Não quero um perfil que fala para todos os músicos. Quero um perfil que faz <strong>um músico específico se virar para o colega e dizer: "cara, você precisa seguir isso".</strong> Esse é o único critério de sucesso para os primeiros 90 dias no Instagram.</p>
+      <p>Quem é esse músico? É o que está <strong>trabalhando, tem demanda, mas não consegue organizar o negócio.</strong> Não é o iniciante que quer aprender a tocar. Não é o profissional consolidado que já tem tudo resolvido. É o músico que vive em conflito entre a arte e o dinheiro — e que precisa ouvir alguém tratar isso com seriedade.</p>
+      <p>O perfil precisa ter um ponto de vista. Não "dicas de carreira musical". Um ponto de vista. Exemplo: <em>"Músico talentoso que cobra barato não tem problema de valor — tem problema de estrutura."</em> Esse ponto de vista vai na bio, vai em cada post, vai em cada resposta de DM.</p>
+    </div>
+
+    <div class="ig-perfil">
+      <h3>Especificação do Perfil @maestropalco</h3>
+      <div class="ig-campo">
+        <span class="ig-campo-label">handle</span>
+        <span class="ig-campo-valor"><span class="handle">@maestropalco</span></span>
+      </div>
+      <div class="ig-campo">
+        <span class="ig-campo-label">nome exibido</span>
+        <span class="ig-campo-valor">MAESTRO PALCO</span>
+      </div>
+      <div class="ig-campo">
+        <span class="ig-campo-label">categoria</span>
+        <span class="ig-campo-valor">Produto de Educação / Educação Musical</span>
+      </div>
+      <div class="ig-campo">
+        <span class="ig-campo-label">foto</span>
+        <span class="ig-campo-valor">Logo Maestro Palco em fundo #141422 — não a foto do Edilson</span>
+      </div>
+      <div class="ig-campo">
+        <span class="ig-campo-label">link</span>
+        <span class="ig-campo-valor">URL da página de vendas (HostGator)</span>
+      </div>
+      <div class="ig-campo">
+        <span class="ig-campo-label">bio</span>
+        <span class="ig-campo-valor"></span>
+      </div>
+      <div class="ig-bio">Músico profissional → carreira estruturada.
+Preço. Presença. Sistema. Plano 90 dias.
+23 aulas · 4 ferramentas práticas.
+↓ Acesse o curso</div>
+    </div>
+
+    <div class="ig-perfil">
+      <h3>4 Pilares de Conteúdo</h3>
+      <div class="pilar-grid">
+        <div class="pilar-card">
+          <div class="pilar-num">PILAR 01</div>
+          <div class="pilar-nome">Realidade Bruta</div>
+          <div class="pilar-desc">Verdades sobre viver de música que ninguém fala em público. Sem filtro, sem condescendência. O músico precisa se sentir visto — não ensinado.</div>
+          <div class="pilar-exemplos">Ex: "Por que músicos talentosos cobram R$80 por hora" · "O erro que a maioria comete quando diz 'está caro'"</div>
+        </div>
+        <div class="pilar-card">
+          <div class="pilar-num">PILAR 02</div>
+          <div class="pilar-nome">Técnica Comercial</div>
+          <div class="pilar-desc">Como cobrar, como apresentar preço, como montar proposta, como não ceder no valor. Conteúdo educativo direto — sem "dicas motivacionais".</div>
+          <div class="pilar-exemplos">Ex: "Como responder 'quanto você cobra?'" · "A fórmula para calcular o preço mínimo por serviço"</div>
+        </div>
+        <div class="pilar-card">
+          <div class="pilar-num">PILAR 03</div>
+          <div class="pilar-nome">Dentro do Curso</div>
+          <div class="pilar-desc">Fragmentos das aulas, previews das ferramentas, citações diretas do conteúdo. Funciona como vitrine e como prova de profundidade.</div>
+          <div class="pilar-exemplos">Ex: Preview da Calculadora de Precificação · Print de ferramenta preenchida · Recorte de slide de aula</div>
+        </div>
+        <div class="pilar-card">
+          <div class="pilar-num">PILAR 04</div>
+          <div class="pilar-nome">Resultado e Transformação</div>
+          <div class="pilar-desc">Depoimentos de alunos, antes/depois de carreira, histórias reais. Começa vazio — substitui por histórias do próprio Edilson enquanto não tem alunos.</div>
+          <div class="pilar-exemplos">Ex: "O que mudou na minha carreira quando aprendi a precificar" · Depoimento de aluno (assim que disponível)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ig-perfil">
+      <h3>Grade Inicial — Primeiros 9 Posts (padrão de repetição)</h3>
+      <p style="font-size:13px;color:#666;margin-bottom:12px;">Sequência que se repete. Cada linha da grade tem: Frase de impacto → Carrossel educativo → Reel. Cria ritmo visual reconhecível.</p>
+      <div class="grade-grid">
+        <div class="grade-cell frase">FRASE<br>impacto</div>
+        <div class="grade-cell carrossel">CARROSSEL<br>educativo</div>
+        <div class="grade-cell reel">REEL<br>bastidores</div>
+        <div class="grade-cell frase">FRASE<br>impacto</div>
+        <div class="grade-cell carrossel">PREVIEW<br>ferramenta</div>
+        <div class="grade-cell reel">REEL<br>educativo</div>
+        <div class="grade-cell frase">FRASE<br>impacto</div>
+        <div class="grade-cell carrossel">OBJEÇÃO<br>respondida</div>
+        <div class="grade-cell reel">REEL<br>resultado</div>
+      </div>
+      <p style="font-size:12px;color:#444;margin-top:12px;font-family:'JetBrains Mono',monospace;">Frequência: 1 post/dia na semana de lançamento · 4 posts/semana depois · 3 Reels/semana no mínimo</p>
+    </div>
+  </div>
+
+  <!-- PAUTA 2: LEAD MAGNET -->
+  <div class="section">
+    <div class="pauta-titulo">
+      <h2>Tópico 2 — Lead Magnet e Captura de Lista</h2>
+      <span>Antes de lançar, você precisa de uma lista. Antes de uma lista, você precisa de um motivo para entrar nela.</span>
+    </div>
+
+    <div class="conselheiro alex">
+      <div class="conselheiro-nome">Alex Hormozi</div>
+      <div class="conselheiro-papel">Oferta · Conversão · $100M Offers</div>
+      <p>Você já tem o lead magnet. Está sentado em <em>ferramentas-palco.rota50ia.com</em> sem ninguém usando. A <strong>Auditoria de Presença Visual</strong> é perfeita como isca: é gratuita, entrega resultado imediato, e quem a usa já é qualificado — só faz sentido para músico que já tem Instagram ativo.</p>
+      <p>Monte uma landing page de uma página. Proposta: <em>"Descubra em 5 minutos o que está travando sua imagem online como músico — checklist gratuito."</em> Formulário de nome e email. Ao submeter, recebe o link da auditoria. Entra na sequência de email.</p>
+      <p>Sem isso, você está empurrando pessoas direto para o checkout sem aquecimento. A taxa de conversão vai ser baixa. <strong>Lead magnet → sequência de email → checkout</strong> é a ordem correta.</p>
+    </div>
+
+    <div class="conselheiro thiago">
+      <div class="conselheiro-nome">Thiago Finch</div>
+      <div class="conselheiro-papel">Execução Digital Brasil · Meta Ads · WhatsApp</div>
+      <p>No Brasil, o WhatsApp converte mais que o email — mas o email qualifica melhor. A estratégia correta é capturar email E WhatsApp no lead magnet. Na landing page: campo de email + campo de telefone (opcional, mas incentivado).</p>
+      <p>Quem deixa WhatsApp entra em uma lista de broadcast no uazapi que você já tem infraestrutura para usar. Na semana de lançamento, <strong>mensagem direta no WhatsApp para a lista</strong> tem taxa de abertura de 80%+ contra 20-30% do email. Use os dois.</p>
+      <p>Para a landing page de captura, <strong>não precisa de domínio novo</strong> — pode ser uma página simples em captura.rota50ia.com ou até uma aba no mesmo ferramentas-palco.rota50ia.com. O que importa é o formulário conectado ao n8n já existente.</p>
+    </div>
+
+    <div class="decisao">
+      <h3>Decisão — Lead Magnet</h3>
+      <div class="decisao-item"><span class="decisao-label">produto</span><span class="decisao-valor destaque">Auditoria de Presença Visual (já existe)</span></div>
+      <div class="decisao-item"><span class="decisao-label">headline</span><span class="decisao-valor">"Descubra o que está travando sua imagem online como músico — checklist gratuito"</span></div>
+      <div class="decisao-item"><span class="decisao-label">captura</span><span class="decisao-valor">Nome + Email + WhatsApp (opcional) via landing page simples</span></div>
+      <div class="decisao-item"><span class="decisao-label">entrega</span><span class="decisao-valor">n8n: email automático com link da auditoria + entrada na sequência de lançamento</span></div>
+      <div class="decisao-item"><span class="decisao-label">onde promover</span><span class="decisao-valor">Bio do @maestropalco + Stories + link no perfil pessoal do Edilson</span></div>
+    </div>
+  </div>
+
+  <!-- PAUTA 3: SEQUÊNCIA DE EMAIL -->
+  <div class="section">
+    <div class="pauta-titulo">
+      <h2>Tópico 3 — Sequência de Email de Lançamento</h2>
+      <span>7 emails · 8 dias · Do lead magnet ao fechamento do carrinho</span>
+    </div>
+
+    <div class="conselheiro ry">
+      <div class="conselheiro-nome">Ry Schwartz</div>
+      <div class="conselheiro-papel">Copy de Email · Psicologia de Conversão · Coach para Coaches</div>
+      <p>O erro mais comum em lançamentos de infoproduto é tratar o email como um comunicado. <em>"O curso abre amanhã."</em> <em>"Último dia."</em> Informação pura. Isso não converte porque não conecta — a pessoa não tem razão emocional para agir.</p>
+      <p><strong>A sequência certa segue um arco emocional</strong>, não um calendário. Começa onde a pessoa está (dor reconhecível), vai para onde ela quer estar (identidade desejada), apresenta o caminho (o produto), derruba as objeções (o porquê de funcionar), e fecha com urgência genuína — não artificial.</p>
+      <p>Para o Maestro Palco, o arco é: <em>"Você não é um músico que cobra barato porque não tem valor — você cobra barato porque não tem estrutura. Estrutura é o que o curso entrega."</em> Esse é o fio condutor dos 7 emails. Cada email puxa o mesmo fio de um ângulo diferente.</p>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <span class="email-num">E1</span>
+        <span class="email-dia">D−7</span>
+        <span class="email-subject">Você não tem um problema de talento.</span>
+      </div>
+      <div class="email-body">
+        <span class="gancho">"Se você está lendo isso, provavelmente já sabe que é bom no que faz. O problema não é o talento."</span>
+        <br><br>
+        <strong>Arco:</strong> Nomeia a dor com precisão — o músico que trabalha muito, cobra pouco, não sabe como mudar. Não é problema de qualidade, é problema de estrutura. <strong>Não menciona o produto.</strong> Termina com uma pergunta: "Você já se perguntou qual seria seu preço se você soubesse como cobrar?"
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <span class="email-num">E2</span>
+        <span class="email-dia">D−4</span>
+        <span class="email-subject">A diferença entre cobrar R$80 e cobrar R$800 (não é o que você pensa)</span>
+      </div>
+      <div class="email-body">
+        <span class="gancho">"Todo mundo acha que é autoestima. Não é. É uma planilha."</span>
+        <br><br>
+        <strong>Arco:</strong> Conta a história de dois músicos com o mesmo nível técnico — um cobra R$80, o outro R$800. A diferença não é a qualidade, é que o segundo sabe seus custos, sabe suas horas, sabe o preço mínimo viável. Apresenta o conceito da Calculadora de Precificação sem dar o link. <strong>Teaser do curso</strong> no final: "Na semana que vem vou abrir algo que resolve exatamente isso."
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <span class="email-num">E3</span>
+        <span class="email-dia">D−1</span>
+        <span class="email-subject">Abre amanhã. O que é e para quem é.</span>
+      </div>
+      <div class="email-body">
+        <span class="gancho">"Antes de você entrar, preciso ser honesto sobre o que o Maestro Palco é — e o que não é."</span>
+        <br><br>
+        <strong>Arco:</strong> Email de pré-abertura. <strong>Não é para todos</strong> — define claramente: é para músico que já trabalha, não para iniciante. Apresenta os 4 temas com o que cada um resolve. Mostra as 4 ferramentas como diferencial concreto. Preço antecipado. "Abre amanhã às 9h."
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <span class="email-num">E4</span>
+        <span class="email-dia">D 0</span>
+        <span class="email-subject">Maestro Palco está aberto.</span>
+      </div>
+      <div class="email-body">
+        <span class="gancho">"O carrinho está aberto. Vai fechar em [DATA]. Aqui está o que você recebe."</span>
+        <br><br>
+        <strong>Arco:</strong> Email de abertura direta. Oferta completa: 23 aulas, 4 ferramentas, garantia 30 dias. Preço com ancoragem (valor das ferramentas separadas vs. preço do pacote). <strong>CTA claro: botão para o checkout.</strong> Curto — pessoas já sabem o que é, querem o link.
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <span class="email-num">E5</span>
+        <span class="email-dia">D+2</span>
+        <span class="email-subject">Por que músicos talentosos ficam parados anos no mesmo ponto?</span>
+      </div>
+      <div class="email-body">
+        <span class="gancho">"Não é falta de oportunidade. Não é falta de networking. É uma coisa só."</span>
+        <br><br>
+        <strong>Arco:</strong> Responde à objeção silenciosa — "será que vai funcionar para mim?" Aprofunda o diagnóstico: sem identidade clara, sem preço calculado, sem sistema, sem plano — o músico age no improviso eterno. Conecta cada problema a um tema do curso. <strong>CTA no final.</strong>
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <span class="email-num">E6</span>
+        <span class="email-dia">D+5</span>
+        <span class="email-subject">O que acontece em 2h30min de vídeo.</span>
+      </div>
+      <div class="email-body">
+        <span class="gancho">"2h30min. É o que leva para assistir ao curso de um puxão. O que muda depois?"</span>
+        <br><br>
+        <strong>Arco:</strong> Descreve a transformação específica por tema — o que o músico consegue fazer DEPOIS de cada módulo que não conseguia antes. <strong>Concreto, sem hipérbole.</strong> Termina com a garantia de 30 dias como eliminação de risco: "Se depois de assistir você achar que não valeu o investimento, devolvo o dinheiro. Sem perguntas."
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <span class="email-num">E7</span>
+        <span class="email-dia">D+7</span>
+        <span class="email-subject">Fecha hoje à meia-noite.</span>
+      </div>
+      <div class="email-body">
+        <span class="gancho">"Sem extensão. Sem reabertura amanhã."</span>
+        <br><br>
+        <strong>Arco:</strong> O email mais curto da sequência. Três parágrafos. Lembra o que está em jogo (o músico que não muda, não muda). Lembra o que está disponível. Data e hora de fechamento. Link. <strong>Uma decisão.</strong> Não enrola.
+      </div>
+    </div>
+  </div>
+
+  <!-- PAUTA 4: META ADS -->
+  <div class="section">
+    <div class="pauta-titulo">
+      <h2>Tópico 4 — Tráfego Pago: quando ligar, quanto investir</h2>
+      <span>Meta Ads · Retargeting · WhatsApp Ads</span>
+    </div>
+
+    <div class="conselheiro thiago">
+      <div class="conselheiro-nome">Thiago Finch</div>
+      <div class="conselheiro-papel">Execução Digital Brasil · Meta Ads · Tráfego Pago</div>
+      <p>Minha recomendação: <strong>não ligar ads na abertura do carrinho.</strong> Tráfego pago em lista fria para um produto de R$397 sem prova social e sem pixel aquecido vai queimar verba sem resultado. A primeira rodada de vendas precisa vir de audiência quente — a base pessoal do Edilson e a lista de leads capturados.</p>
+      <p>O momento certo para ligar ads é <strong>quando você tiver os primeiros 5-10 depoimentos reais.</strong> Aí o criativo já tem prova social, o pixel já tem dados de compra para otimizar lookalike, e o orçamento vai trabalhar com mais eficiência.</p>
+      <p>Para este lançamento: <strong>stories do @maestropalco com link para o lead magnet</strong> são o equivalente de tráfego pago sem custar nada. E o perfil do Edilson tem audiência real — um storie mencionando o curso com link direto para o checkout já é distribuição orgânica de qualidade.</p>
+    </div>
+
+    <div class="conselheiro alex">
+      <div class="conselheiro-nome">Alex Hormozi</div>
+      <div class="conselheiro-papel">Oferta · Conversão</div>
+      <p>Concordo com o Thiago na fase atual, mas quero deixar o plano de ads pronto para quando chegar a hora. <strong>O criativo mais eficiente para R$397 no Brasil é o Reel educativo direto</strong> — 30-60 segundos, abre com a dor, resolve com o produto, termina com CTA. Não é anúncio-anúncio. É conteúdo que distribui.</p>
+      <p>Budget para quando ativar: <strong>R$50/dia</strong> de tráfego para o lead magnet + R$30/dia de retargeting para quem visitou a página de vendas mas não comprou. Total de R$2.400/mês — esse investimento se paga com 7 matrículas.</p>
+    </div>
+
+    <div class="ads-card">
+      <h3>Plano de Ads — Fase 2 (após primeiros 10 alunos)</h3>
+      <div class="ads-row"><span class="ads-label">objetivo camp. 1</span><span class="ads-val">Leads — captura para o lead magnet (Auditoria)</span></div>
+      <div class="ads-row"><span class="ads-label">objetivo camp. 2</span><span class="ads-val">Conversão — retargeting para quem visitou a página de vendas</span></div>
+      <div class="ads-row"><span class="ads-label">público frio</span><span class="ads-val">Músicos, professores de música, artistas · Brasil · 25-45 anos · Interesses: instrumentos, gravação, aulas de música</span></div>
+      <div class="ads-row"><span class="ads-label">público quente</span><span class="ads-val">Visitantes da página de vendas (pixel Eduzz) + lista de emails subida no Meta</span></div>
+      <div class="ads-row"><span class="ads-label">criativo fase 2</span><span class="ads-val">Reel educativo 30-60s + depoimento de aluno em carrossel</span></div>
+      <div class="ads-row"><span class="ads-label">budget inicial</span><span class="ads-val">R$50/dia leads + R$30/dia retargeting = R$80/dia · ~R$2.400/mês</span></div>
+      <div class="ads-row"><span class="ads-label">break-even</span><span class="ads-val">7 matrículas/mês cobrem o investimento em ads</span></div>
+    </div>
+  </div>
+
+  <!-- PAUTA 5: CONTEÚDO ORGÂNICO -->
+  <div class="section">
+    <div class="pauta-titulo">
+      <h2>Tópico 5 — Conteúdo Orgânico: primeiros 30 posts do @maestropalco</h2>
+      <span>Reels · Carrosséis · Frases · Frequência</span>
+    </div>
+
+    <div class="conselheiro seth">
+      <div class="conselheiro-nome">Seth Godin</div>
+      <div class="conselheiro-papel">Marketing de Permissão · Tribo</div>
+      <p>Existem dois tipos de conta de Instagram: as que pedem atenção e as que merecem atenção. A diferença está em uma palavra: <strong>especificidade</strong>. "Dicas para músicos" é genérico. "Como responder quando o cliente diz que seu preço está caro" é específico. Um faz você scrollar, o outro faz você parar.</p>
+      <p>Para os primeiros 30 posts, cada um deve ser capaz de existir de forma independente — <strong>sem contexto de que existe um curso por trás</strong>. A conta funciona se o curso não existisse. Isso é o que cria confiança. Quando você parece um vendedor, você perde permissão. Quando você parece um professor, você ganha seguidores que querem comprar.</p>
+      <p>A regra que uso: <strong>para cada post que vende, cinco que ensinam.</strong> No início, pode ser dez que ensinam para cada um que vende. O saldo de confiança precisa estar positivo antes de qualquer saque.</p>
+    </div>
+
+    <div class="conselheiro brad">
+      <div class="conselheiro-nome">Brad Frost</div>
+      <div class="conselheiro-papel">Design System</div>
+      <p>Todos os posts saem de um template — <strong>não de posts individuais criados do zero</strong>. O trabalho de design é feito uma vez: criar os templates no Canva ou no Figma usando o sistema Podium Stage. Depois, preencher é questão de minutos.</p>
+      <p>Templates necessários: <strong>(1)</strong> Frase de impacto — fundo midnight, texto Montserrat 900, linha dourada. <strong>(2)</strong> Carrossel educativo — capa escura, slides internos com tipografia clara, última slide com CTA. <strong>(3)</strong> Preview de ferramenta — screenshot da ferramenta com moldura de "apresentação". Esses três templates cobrem 90% do conteúdo do perfil.</p>
+    </div>
+  </div>
+
+  <!-- PAUTA 6: TIMELINE -->
+  <div class="section">
+    <div class="pauta-titulo">
+      <h2>Tópico 6 — Timeline de Execução</h2>
+      <span>4 semanas · Do setup ao carrinho fechado</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="semana">
+        <div class="semana-header">
+          <span class="semana-num">SEMANA 1</span>
+          <span class="semana-titulo">Setup e Grade Inicial</span>
+          <span class="semana-datas">D−14 a D−8</span>
+        </div>
+        <div class="semana-body">
+          <div class="semana-task"><strong>Criar @maestropalco</strong> — nome, bio, foto de perfil, link configurado</div>
+          <div class="semana-task"><strong>Templates Canva</strong> — frase de impacto · carrossel · preview de ferramenta (3 templates)</div>
+          <div class="semana-task"><strong>9 posts da grade inicial</strong> — publicar os 9 primeiros posts para não aparecer vazia na abertura</div>
+          <div class="semana-task"><strong>Landing page lead magnet</strong> — página simples de captura conectada ao n8n</div>
+          <div class="semana-task"><strong>Configurar sequência de email</strong> — 7 emails escritos e agendados no disparo</div>
+          <div class="semana-task"><strong>Perfil do Edilson</strong> — 1 storie mencionando @maestropalco + link na bio do perfil pessoal</div>
+          <div class="semana-meta">Meta da semana: conta criada · 50+ leads na lista · 9 posts publicados</div>
+        </div>
+      </div>
+
+      <div class="semana">
+        <div class="semana-header">
+          <span class="semana-num">SEMANA 2</span>
+          <span class="semana-titulo">Aquecimento de Lista</span>
+          <span class="semana-datas">D−7 a D−1</span>
+        </div>
+        <div class="semana-body">
+          <div class="semana-task"><strong>Email 1 e Email 2</strong> disparados (D−7 e D−4)</div>
+          <div class="semana-task"><strong>3 Reels de conscientização</strong> publicados no @maestropalco — sem falar em curso, só conteúdo</div>
+          <div class="semana-task"><strong>2 carrosséis educativos</strong> — pilares 1 e 2</div>
+          <div class="semana-task"><strong>Stories diários</strong> no @maestropalco e no perfil do Edilson — teaser do que vem</div>
+          <div class="semana-task"><strong>Email 3</strong> na véspera (D−1) — pré-abertura</div>
+          <div class="semana-meta">Meta da semana: 200+ seguidores @maestropalco · lista aquecida · expectativa criada</div>
+        </div>
+      </div>
+
+      <div class="semana">
+        <div class="semana-header">
+          <span class="semana-num">SEMANA 3</span>
+          <span class="semana-titulo">Carrinho Aberto — Lançamento</span>
+          <span class="semana-datas">D 0 a D+7</span>
+        </div>
+        <div class="semana-body">
+          <div class="semana-task"><strong>Email 4 (abertura)</strong> — D 0 às 9h · link do checkout</div>
+          <div class="semana-task"><strong>Post de abertura</strong> no @maestropalco — anúncio do curso com link na bio</div>
+          <div class="semana-task"><strong>Stories de vendas</strong> — 3 a 5 stories/dia durante os 7 dias de carrinho aberto</div>
+          <div class="semana-task"><strong>Emails 5, 6 e 7</strong> — D+2, D+5, D+7</div>
+          <div class="semana-task"><strong>WhatsApp broadcast</strong> para lista que deixou número — abertura + urgência final</div>
+          <div class="semana-task"><strong>2 Reels de conteúdo</strong> durante a semana — não de venda direta, mas com CTA na descrição</div>
+          <div class="semana-meta">Meta da semana: 10 matrículas (conservador) · 20 matrículas (realista) · R$3.970 a R$7.940</div>
+        </div>
+      </div>
+
+      <div class="semana">
+        <div class="semana-header">
+          <span class="semana-num">SEMANA 4+</span>
+          <span class="semana-titulo">Perpétuo — Manutenção e Escala</span>
+          <span class="semana-datas">D+8 em diante</span>
+        </div>
+        <div class="semana-body">
+          <div class="semana-task"><strong>4 posts/semana</strong> no @maestropalco — ritmo sustentável</div>
+          <div class="semana-task"><strong>1 email/semana</strong> para a lista — conteúdo, não venda constante</div>
+          <div class="semana-task"><strong>Coletar depoimentos</strong> dos primeiros alunos — base para a Fase 2 de ads</div>
+          <div class="semana-task"><strong>Novo lançamento em 30 dias</strong> — reutiliza a sequência, adiciona prova social</div>
+          <div class="semana-task"><strong>Ligar Meta Ads</strong> quando tiver 5+ depoimentos — campanha de leads para o lead magnet</div>
+          <div class="semana-meta">Meta do mês 2: 50 alunos acumulados · @maestropalco com 1.000 seguidores · R$19.850 em receita</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DECISÕES FINAIS -->
+  <div class="section">
+    <div class="section-title">Resoluções do Conselho</div>
+
+    <div class="decisao">
+      <h3>Decisões Aprovadas por Unanimidade</h3>
+      <div class="decisao-item"><span class="decisao-label">perfil instagram</span><span class="decisao-valor destaque">@maestropalco — criar imediatamente, separado do perfil pessoal</span></div>
+      <div class="decisao-item"><span class="decisao-label">lead magnet</span><span class="decisao-valor destaque">Auditoria de Presença Visual — ferramenta já existente, zero custo adicional</span></div>
+      <div class="decisao-item"><span class="decisao-valor destaque" style="grid-column:1/-1">Sequência de 7 emails com arco emocional — escrita e automatizada antes da abertura</span></div>
+      <div class="decisao-item"><span class="decisao-label">ads fase 1</span><span class="decisao-valor">NÃO ligar — aguardar primeiros 10 alunos e depoimentos reais</span></div>
+      <div class="decisao-item"><span class="decisao-label">ads fase 2</span><span class="decisao-valor">R$80/dia (leads + retargeting) quando tiver prova social</span></div>
+      <div class="decisao-item"><span class="decisao-label">whatsapp</span><span class="decisao-valor">Capturar número no lead magnet + broadcast na semana de lançamento via uazapi</span></div>
+      <div class="decisao-item"><span class="decisao-label">frequência</span><span class="decisao-valor">1 post/dia na semana de lançamento · 4 posts/semana depois · 3 Reels/semana</span></div>
+      <div class="decisao-item"><span class="decisao-label">perfil edilson</span><span class="decisao-valor">Mencionar @maestropalco no link da bio + 1 storie de abertura por semana — não misturar os dois perfis</span></div>
+    </div>
+  </div>
+
+  <!-- ENTREGÁVEIS -->
+  <div class="section">
+    <div class="section-title">Entregáveis — Quem Faz O Quê</div>
+
+    <div class="entregavel">
+      <span class="entregavel-check pending">◐</span>
+      <div class="entregavel-body">
+        <strong>Criar @maestropalco no Instagram</strong>
+        <span>Bio, foto de perfil com o logo, link da página de vendas, categoria configurada</span>
+      </div>
+      <span class="entregavel-dono edilson">Edilson</span>
+    </div>
+
+    <div class="entregavel">
+      <span class="entregavel-check pending">◐</span>
+      <div class="entregavel-body">
+        <strong>3 Templates Canva (Podium Stage)</strong>
+        <span>Frase de impacto · Carrossel educativo · Preview de ferramenta — em Midnight + Gold</span>
+      </div>
+      <span class="entregavel-dono brad">Brad / Design</span>
+    </div>
+
+    <div class="entregavel">
+      <span class="entregavel-check pending">◐</span>
+      <div class="entregavel-body">
+        <strong>9 posts da grade inicial</strong>
+        <span>3 frases de impacto · 3 carrosséis educativos · 3 Reels — publicados antes do lançamento</span>
+      </div>
+      <span class="entregavel-dono seth">Squad</span>
+    </div>
+
+    <div class="entregavel">
+      <span class="entregavel-check pending">◐</span>
+      <div class="entregavel-body">
+        <strong>Landing page do lead magnet</strong>
+        <span>Página simples de captura (nome + email + WhatsApp) conectada ao n8n — entrega o link da Auditoria automaticamente</span>
+      </div>
+      <span class="entregavel-dono thiago">Thiago / Dev</span>
+    </div>
+
+    <div class="entregavel">
+      <span class="entregavel-check pending">◐</span>
+      <div class="entregavel-body">
+        <strong>7 emails escritos e configurados</strong>
+        <span>Copy completa dos 7 emails com subjects, arco emocional e CTAs — agendados no disparador</span>
+      </div>
+      <span class="entregavel-dono ry">Ry / Copy</span>
+    </div>
+
+    <div class="entregavel">
+      <span class="entregavel-check pending">◐</span>
+      <div class="entregavel-body">
+        <strong>Workflow n8n — lead magnet</strong>
+        <span>Webhook captura lead → salva Supabase → envia email com link da Auditoria → entra na sequência</span>
+      </div>
+      <span class="entregavel-dono thiago">Thiago / n8n</span>
+    </div>
+
+    <div class="entregavel">
+      <span class="entregavel-check pending">◐</span>
+      <div class="entregavel-body">
+        <strong>VSL — montagem do vídeo</strong>
+        <span>Gravar screencast dos slides · montar no CapCut com os 6 áudios já produzidos · incorporar na página de vendas</span>
+      </div>
+      <span class="entregavel-dono edilson">Edilson</span>
+    </div>
+
+    <div class="entregavel">
+      <span class="entregavel-check pending">◐</span>
+      <div class="entregavel-body">
+        <strong>Foto do Edilson na página de vendas</strong>
+        <span>Upload do foto-edilson.png na pasta do site na HostGator — já identificado como gap</span>
+      </div>
+      <span class="entregavel-dono edilson">Edilson</span>
+    </div>
+  </div>
+
+  <!-- SÍNTESE -->
+  <div class="sintese">
+    <h3>Síntese do Conselho</h3>
+    <p>O produto está pronto. A infraestrutura está pronta. O que falta não é construção — é distribuição. <strong>O foco das próximas duas semanas é um único objetivo: colocar pessoas qualificadas em frente à página de vendas com contexto suficiente para comprar.</strong></p>
+    <p>A ordem de prioridade é: (1) criar o perfil @maestropalco com os primeiros 9 posts, (2) montar o lead magnet da Auditoria com captura de email, (3) escrever e configurar os 7 emails de lançamento, (4) abrir o carrinho. Nessa sequência, nessa ordem.</p>
+    <p>Não espere a perfeição. A landing page do lead magnet pode ser simples. Os templates podem ser básicos. O que não pode falhar é a sequência de email — esse é o ativo mais valioso desta estrutura de lançamento. <strong>Ry lidera a copy. Todo o resto se adapta em torno dela.</strong></p>
+    <p>Meta realista para o primeiro lançamento: <strong>20 matrículas = R$7.940</strong>. Com prova social em mãos, o segundo lançamento converte mais com menos esforço. O jogo começa aqui.</p>
+  </div>
+
+  <div class="footer">
+    <span>Board Meeting #4 · Maestro Palco · 24/04/2026</span>
+    <span>Próxima sessão: revisão de copy dos 7 emails</span>
+  </div>
+
+</div>
+</body>
+</html>
